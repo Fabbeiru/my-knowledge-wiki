@@ -1,0 +1,28 @@
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="section-label">Tipos</div>
+    <button class="type-row" [class.active]="selectedType() === null" (click)="onSelectType(null)">
+      <div class="type-dot" style="background:#9ca3af"></div>
+      <span>Todos</span>
+      <span class="count">{{ totalNotes() }}</span>
+    </button>
+    @for (entry of types; track entry[0]) {
+    <button class="type-row" [class.active]="selectedType() === entry[0]" (click)="onSelectType(entry[0])">
+      <div class="type-dot" [style.background]="entry[1].color"></div>
+      <span>{{ entry[1].label }}</span>
+      <span class="count">{{ countByType()[entry[0]] }}</span>
+    </button>
+    }
+  </div>
+
+  <div class="sidebar-section">
+    <div class="section-label">Tags</div>
+    <div class="tag-cloud">
+      @for (tag of allTags(); track tag) {
+      <button class="tag-pill" [class.active]="selectedTags().includes(tag)" (click)="onToggleTag(tag)">
+        {{ tag }}
+      </button>
+      }
+    </div>
+  </div>
+</aside>

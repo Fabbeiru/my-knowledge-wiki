@@ -1,0 +1,151 @@
+.skeleton-detail-wrap {
+	width: 100%;
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.skeleton-main {
+	display: flex;
+	gap: 24px;
+	align-items: flex-start;
+}
+
+.skeleton-content {
+	flex: 1;
+	min-width: 0;
+	background: var(--bg-primary);
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	padding: 28px 32px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.skeleton-title {
+	height: 28px;
+	width: 35%;
+	border-radius: 6px;
+	margin-bottom: 4px;
+}
+
+.skeleton-divider {
+	height: 1px;
+	background: var(--border);
+	margin: 4px 0 8px;
+}
+
+.skeleton-line {
+	height: 13px;
+	border-radius: 4px;
+	width: 100%;
+
+	&.short {
+		width: 65%;
+	}
+}
+
+.skeleton-gap {
+	height: 6px;
+}
+
+.skeleton-code {
+	height: 80px;
+	border-radius: 8px;
+	margin-top: 4px;
+}
+
+.skeleton-panel {
+	width: 200px;
+	flex-shrink: 0;
+}
+
+.skeleton-panel-card {
+	background: var(--bg-primary);
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	padding: 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.skeleton-panel-row {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.skeleton-panel-label {
+	height: 10px;
+	width: 45%;
+	border-radius: 4px;
+}
+
+.skeleton-badge {
+	height: 20px;
+	width: 70px;
+	border-radius: 999px;
+}
+
+.skeleton-panel-value {
+	height: 13px;
+	width: 75%;
+	border-radius: 4px;
+}
+
+.skeleton-tags {
+	display: flex;
+	gap: 4px;
+}
+
+.skeleton-tag {
+	height: 18px;
+	width: 56px;
+	border-radius: 999px;
+}
+
+.shimmer {
+	background: linear-gradient(90deg,
+			var(--bg-tertiary) 25%,
+			var(--bg-secondary) 50%,
+			var(--bg-tertiary) 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+@media (max-width: 768px) {
+	.skeleton-detail-wrap {
+		padding: 16px;
+	}
+
+	.skeleton-main {
+		flex-direction: column;
+	}
+
+	.skeleton-panel {
+		width: 100%;
+	}
+
+	.skeleton-panel-card {
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 16px;
+
+		.skeleton-panel-row {
+			flex: 1;
+			min-width: 100px;
+		}
+	}
+}

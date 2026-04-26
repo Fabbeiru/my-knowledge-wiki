@@ -1,0 +1,86 @@
+<div class="note-list-shell">
+  <sidebar class="desktop-sidebar" />
+
+  <div class="note-list-main">
+
+    <!-- Filtros inline — solo móvil -->
+    <div class="mobile-filters">
+      <div class="filters-row">
+        <div class="mobile-filter-types">
+          <button class="filter-pill type-pill" [class.active]="selectedType() === null" (click)="onSelectType(null)">
+            Todos
+          </button>
+          @for (type of noteTypes; track type.key) {
+          <button class="filter-pill type-pill" [class.active]="selectedType() === type.key"
+            (click)="onSelectType(type.key)">
+            {{ type.label }}
+          </button>
+          }
+        </div>
+
+        <button class="tags-toggle" [class.active]="tagsExpanded()" (click)="toggleTags()">
+          Tags
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            [style.transform]="tagsExpanded() ? 'rotate(180deg)' : 'rotate(0deg)'" style="transition: transform 0.2s">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </button>
+      </div>
+
+      @if (tagsExpanded()) {
+      <div class="mobile-filter-tags">
+        @for (tag of allTags(); track tag) {
+        <button class="filter-pill tag-pill" [class.active]="selectedTags().includes(tag)" (click)="onToggleTag(tag)">
+          {{ tag }}
+        </button>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="centered-layout">
+
+      <div class="list-header">
+        <h1 class="list-title">
+          {{ breadcrumbType() ?? 'Todas las notas' }}
+        </h1>
+        <span class="list-meta">
+          {{ notes().length }} {{ notes().length === 1 ? 'nota' : 'notas' }}
+        </span>
+      </div>
+
+      <div class="notes-grid-wrapper">
+
+        @if (loading()) {
+        <skeleton-card />
+        } @else if (notes().length === 0) {
+        <div class="empty-state">
+          <span class="empty-icon">🔍</span>
+          <p>No se encontraron notas</p>
+          <span>Prueba con otros filtros</span>
+        </div>
+        } @else {
+        <div class="notes-grid">
+          @for (note of notes(); track note.id) {
+          <div class="note-card" (click)="onNoteClick(note)">
+            <div class="note-card-top">
+              <type-badge [type]="note.type" />
+              <span class="note-title">{{ note.title }}</span>
+            </div>
+            <p class="note-preview">{{ getPreview(note.content) }}</p>
+            <div class="note-tags">
+              @for (tag of note.tags; track tag) {
+              <tag-badge [tag]="tag" />
+              }
+            </div>
+          </div>
+          }
+        </div>
+        }
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

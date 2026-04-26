@@ -1,0 +1,126 @@
+<div class="detail-view">
+
+    @if (isLoading()) {
+    <div class="detail-outer">
+        <skeleton-detail />
+    </div>
+    } @else if (note(); as note) {
+
+    <div class="breadcrumb">
+        <span class="bc-link" (click)="goBack()">Inicio</span>
+        <span class="bc-sep">›</span>
+        <span class="bc-link" (click)="goToType(note.type)">
+            {{ note.type.charAt(0).toUpperCase() + note.type.slice(1) }}
+        </span>
+        <span class="bc-sep">›</span>
+        <span class="bc-current">{{ note.title }}</span>
+    </div>
+
+    <div class="detail-outer">
+        <div class="centered-layout">
+
+            <!-- Panel meta — en desktop va dentro del aside via CSS order,
+         en móvil aparece arriba porque está antes en el DOM -->
+            <div class="panel-meta-top">
+                <div class="panel-card panel-card--meta">
+                    <div class="panel-section">
+                        <div class="panel-label">Tipo</div>
+                        <type-badge [type]="note.type" />
+                    </div>
+                    <div class="panel-section">
+                        <div class="panel-label">Creado</div>
+                        <span class="panel-date">{{ formatDate(note.createdAt) }}</span>
+                    </div>
+                    <div class="panel-section">
+                        <div class="panel-label">Actualizado</div>
+                        <span class="panel-date">{{ formatDate(note.updatedAt) }}</span>
+                    </div>
+                    @if (note.tags.length > 0) {
+                    <div class="panel-section">
+                        <div class="panel-label">Tags</div>
+                        <div class="panel-tags">
+                            @for (tag of note.tags; track tag) {
+                            <tag-badge [tag]="tag" />
+                            }
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <div class="detail-main">
+                <div class="detail-content">
+                    <h1 class="detail-title">{{ note.title }}</h1>
+                    <hr class="divider" />
+                    <markdown-renderer [content]="note.content" />
+                </div>
+
+                <aside class="detail-panel">
+                    <div class="panel-card panel-card--desktop-meta">
+                        <div class="panel-section">
+                            <div class="panel-label">Tipo</div>
+                            <type-badge [type]="note.type" />
+                        </div>
+                        <div class="panel-section">
+                            <div class="panel-label">Creado</div>
+                            <span class="panel-date">{{ formatDate(note.createdAt) }}</span>
+                        </div>
+                        <div class="panel-section">
+                            <div class="panel-label">Actualizado</div>
+                            <span class="panel-date">{{ formatDate(note.updatedAt) }}</span>
+                        </div>
+                        @if (note.tags.length > 0) {
+                        <div class="panel-section">
+                            <div class="panel-label">Tags</div>
+                            <div class="panel-tags">
+                                @for (tag of note.tags; track tag) {
+                                <tag-badge [tag]="tag" />
+                                }
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                    @if (relatedNotes().length > 0) {
+                    <div class="panel-card">
+                        <div class="panel-section">
+                            <div class="panel-label">Relacionadas</div>
+                            <div class="related-links">
+                                @for (related of relatedNotes(); track related.id) {
+                                <button class="related-link" (click)="goToNote(related.id)">
+                                    {{ related.title }} →
+                                </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+
+                    @if (note.sources.length > 0) {
+                    <div class="panel-card">
+                        <div class="panel-section">
+                            <div class="panel-label">Fuentes</div>
+                            <div class="sources">
+                                @for (source of note.sources; track source) {
+                                <a [href]="source" target="_blank" class="source-link">
+                                    {{ source }}
+                                </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </aside>
+            </div>
+
+        </div>
+    </div>
+
+    } @else {
+    <div class="not-found">
+        <p>Nota no encontrada</p>
+        <button (click)="goBack()">← Volver</button>
+    </div>
+    }
+
+</div>

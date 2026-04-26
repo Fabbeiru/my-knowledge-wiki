@@ -1,0 +1,107 @@
+{
+    "notes": [
+        {
+            "id": "api",
+            "title": "API",
+            "type": "acronym",
+            "content": "**Application Programming Interface**\n\nContrato entre dos sistemas que define cómo comunicarse. Expone operaciones disponibles sin revelar la implementación interna.\n\n## Tipos comunes\n\n- **REST** — basado en HTTP, el más extendido\n- **GraphQL** — el cliente decide qué datos pide\n- **gRPC** — binario, muy eficiente para microservicios\n- **WebSocket** — comunicación bidireccional en tiempo real\n\n## Ejemplo\n\n```http\nGET /users/42\nAuthorization: Bearer <token>\n\n→ 200 OK\n{ \"id\": 42, \"name\": \"Ada Lovelace\" }\n```",
+            "tags": [ "backend", "web", "fundamentos" ],
+            "related": [ "rest-api", "http" ],
+            "createdAt": "2024-01-15",
+            "updatedAt": "2024-01-15",
+            "sources": [
+                "https://developer.mozilla.org/es/docs/Learn/JavaScript/Client-side_web_APIs/Introduction"
+            ]
+        },
+        {
+            "id": "rest-api",
+            "title": "REST API",
+            "type": "definition",
+            "content": "**Representational State Transfer**\n\nEstilo arquitectónico para diseñar servicios web. No es un protocolo sino un conjunto de restricciones.\n\n## Restricciones principales\n\n- **Stateless** — cada petición contiene toda la información necesaria\n- **Client-Server** — separación clara de responsabilidades\n- **Uniform Interface** — recursos identificados por URLs\n- **Cacheable** — las respuestas deben indicar si son cacheables\n\n## Verbos HTTP en REST\n\n| Verbo | Acción |\n|-------|--------|\n| GET | Leer |\n| POST | Crear |\n| PUT | Reemplazar |\n| PATCH | Actualizar parcialmente |\n| DELETE | Eliminar |",
+            "tags": [ "backend", "web", "arquitectura" ],
+            "related": [ "api", "http", "json" ],
+            "createdAt": "2024-01-16",
+            "updatedAt": "2024-02-10",
+            "sources": []
+        },
+        {
+            "id": "solid-principles",
+            "title": "Principios SOLID",
+            "type": "concept",
+            "content": "Conjunto de cinco principios de diseño orientado a objetos que mejoran la mantenibilidad y escalabilidad del código.\n\n## Los cinco principios\n\n- **S** — *Single Responsibility*: una clase, una razón para cambiar\n- **O** — *Open/Closed*: abierto a extensión, cerrado a modificación\n- **L** — *Liskov Substitution*: los subtipos deben poder sustituir a sus tipos base\n- **I** — *Interface Segregation*: interfaces pequeñas y específicas\n- **D** — *Dependency Inversion*: depender de abstracciones, no de implementaciones",
+            "tags": [ "arquitectura", "buenas-practicas", "oop" ],
+            "related": [ "design-patterns", "clean-code" ],
+            "createdAt": "2024-01-20",
+            "updatedAt": "2024-03-05",
+            "sources": []
+        },
+        {
+            "id": "http",
+            "title": "HTTP",
+            "type": "acronym",
+            "content": "**HyperText Transfer Protocol**\n\nProtocolo de comunicación sin estado que define cómo se intercambian mensajes entre cliente y servidor en la web.\n\n## Estructura de una petición\n\n```\nMétodo URL HTTP/versión\nHeaders\n\nBody (opcional)\n```\n\n## Códigos de estado\n\n- **2xx** — Éxito (200 OK, 201 Created)\n- **3xx** — Redirección (301 Moved, 304 Not Modified)\n- **4xx** — Error del cliente (400 Bad Request, 404 Not Found)\n- **5xx** — Error del servidor (500 Internal Server Error)",
+            "tags": [ "backend", "web", "fundamentos" ],
+            "related": [ "rest-api", "api" ],
+            "createdAt": "2024-01-18",
+            "updatedAt": "2024-01-18",
+            "sources": []
+        },
+        {
+            "id": "angular-signals",
+            "title": "Signals",
+            "type": "concept",
+            "content": "Sistema de reactividad introducido en Angular 16 y estabilizado en Angular 17. Alternativa más simple a RxJS para gestionar estado local.\n\n## Tipos principales\n\n```typescript\n// Signal de lectura y escritura\nconst count = signal(0);\n\n// Modificar\ncount.set(1);\ncount.update(v => v + 1);\n\n// Computed — derivado de otros signals\nconst double = computed(() => count() * 2);\n\n// Effect — ejecuta código cuando cambia\neffect(() => console.log(count()));\n```\n\n## Cuándo usar Signals vs RxJS\n\n- **Signals** para estado local del componente\n- **RxJS** para flujos de eventos asíncronos complejos",
+            "tags": [ "angular", "frontend", "reactividad" ],
+            "related": [ "rxjs", "angular-standalone" ],
+            "createdAt": "2024-02-01",
+            "updatedAt": "2024-03-10",
+            "sources": []
+        },
+        {
+            "id": "dry",
+            "title": "DRY",
+            "type": "acronym",
+            "content": "**Don't Repeat Yourself**\n\nPrincipio de desarrollo que establece que cada pieza de conocimiento debe tener una representación única en el sistema.\n\n## El problema que resuelve\n\nCuando la misma lógica está duplicada en varios sitios, un cambio obliga a modificar todos esos sitios. Si se olvida alguno, aparecen bugs.\n\n## Ejemplo\n\n```typescript\n// ❌ Mal — lógica duplicada\nfunction getPriceWithTaxES(price: number) { return price * 1.21; }\nfunction getPriceWithTaxFR(price: number) { return price * 1.21; }\n\n// ✅ Bien — una sola fuente de verdad\nconst TAX_RATE = 1.21;\nfunction getPriceWithTax(price: number) { return price * TAX_RATE; }\n```",
+            "tags": [ "buenas-practicas", "fundamentos" ],
+            "related": [ "solid-principles", "clean-code" ],
+            "createdAt": "2024-01-25",
+            "updatedAt": "2024-01-25",
+            "sources": []
+        },
+        {
+            "id": "css-flexbox",
+            "title": "Flexbox",
+            "type": "definition",
+            "content": "Modelo de layout unidimensional de CSS que distribuye elementos en un eje (horizontal o vertical).\n\n## Propiedades del contenedor\n\n```css\n.container {\n  display: flex;\n  flex-direction: row;      /* o column */\n  justify-content: center;  /* eje principal */\n  align-items: center;      /* eje secundario */\n  gap: 16px;\n}\n```\n\n## Propiedades del hijo\n\n```css\n.item {\n  flex: 1;          /* crecer y encoger */\n  flex-shrink: 0;   /* no encoger nunca */\n  align-self: flex-start;\n}\n```",
+            "tags": [ "css", "frontend", "layout" ],
+            "related": [ "css-grid" ],
+            "createdAt": "2024-02-05",
+            "updatedAt": "2024-02-05",
+            "sources": []
+        },
+        {
+            "id": "tailwind-tip-arbitrary",
+            "title": "Valores arbitrarios en Tailwind",
+            "type": "tip",
+            "content": "Tailwind permite usar valores exactos fuera de su escala de diseño usando corchetes.\n\n## Sintaxis\n\n```html\n<!-- Ancho exacto -->\n<div class=\"w-[340px]\"></div>\n\n<!-- Color personalizado -->\n<div class=\"bg-[#1a2b3c]\"></div>\n\n<!-- Con variables CSS -->\n<div class=\"text-[var(--wiki-blue)]\"></div>\n```\n\n## Cuándo usarlos\n\nÚsalos con moderación para casos puntuales que no encajan en la escala. Si los usas mucho en el mismo valor, mejor definir un token en `@theme`.",
+            "tags": [ "css", "tailwind", "frontend" ],
+            "related": [ "css-flexbox" ],
+            "createdAt": "2024-03-01",
+            "updatedAt": "2024-03-01",
+            "sources": []
+        },
+        {
+            "id": "app-shell-pattern",
+            "title": "App Shell Pattern",
+            "type": "concept",
+            "content": "Patrón de arquitectura web popularizado por Google con las Progressive Web Apps (PWA).\n\nEl **shell** es la estructura mínima de la interfaz que se carga primero y permanece estable mientras el contenido interior cambia dinámicamente.\n\n## Qué incluye el shell\n\n- Navbar / topbar\n- Sidebar\n- Layout base\n\n## Ventaja principal\n\nComo el esqueleto de la UI ya está pintado antes de que lleguen los datos, la app se siente más rápida para el usuario.\n\n## App Shell vs Wrapper\n\n| Término | Significado |\n|---------|-------------|\n| `AppShell` | Contenedor raíz con intención arquitectónica clara |\n| `Wrapper` | Término genérico de CSS/HTML, solo indica posición en el DOM |\n\nUsar `AppShell` comunica intención. Cualquiera que lea el código entiende que es el contenedor raíz de la aplicación, no un wrapper cualquiera.",
+            "tags": [ "arquitectura", "frontend", "angular", "pwa" ],
+            "related": [ "rest-api" ],
+            "createdAt": "2024-04-25",
+            "updatedAt": "2024-04-25",
+            "sources": [
+                "https://developer.chrome.com/docs/workbox/app-shell-model"
+            ]
+        }
+    ]
+}

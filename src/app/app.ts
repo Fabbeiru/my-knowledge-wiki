@@ -1,12 +1,21 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { SearchBarComponent } from './shared/components/search-bar/search-bar';
+import { ThemeService } from './core/services/theme';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [RouterOutlet, SearchBarComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('my-knowledge-wiki');
+  private router = inject(Router);
+
+  readonly themeService = inject(ThemeService);
+
+  goHome(): void {
+    this.router.navigate(['/notes']);
+  }
 }
