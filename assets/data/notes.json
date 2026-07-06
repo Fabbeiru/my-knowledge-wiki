@@ -52,7 +52,7 @@
             "type": "concept",
             "content": "Sistema de reactividad introducido en Angular 16 y estabilizado en Angular 17. Alternativa más simple a RxJS para gestionar estado local.\n\n## Tipos principales\n\n```typescript\n// Signal de lectura y escritura\nconst count = signal(0);\n\n// Modificar\ncount.set(1);\ncount.update(v => v + 1);\n\n// Computed — derivado de otros signals\nconst double = computed(() => count() * 2);\n\n// Effect — ejecuta código cuando cambia\neffect(() => console.log(count()));\n```\n\n## Cuándo usar Signals vs RxJS\n\n- **Signals** para estado local del componente\n- **RxJS** para flujos de eventos asíncronos complejos",
             "tags": [ "angular", "frontend", "reactividad" ],
-            "related": [ "rxjs", "angular-standalone" ],
+            "related": [ "rxjs", "angular-standalone", "view-transitions-api" ],
             "createdAt": "2024-02-01",
             "updatedAt": "2024-03-10",
             "sources": []
@@ -91,12 +91,52 @@
             "sources": []
         },
         {
+            "id": "view-transitions-api",
+            "title": "View Transitions API",
+            "type": "concept",
+            "content": "API nativa del navegador para animar el cambio visual entre dos estados del DOM (por ejemplo, al navegar de una página a otra) sin escribir animaciones manuales a base de `@keyframes` sobre el nodo insertado.\n\n## Cómo funciona\n\nEl navegador captura una **foto** del estado antes del cambio y otra después, y las cruza (crossfade) usando pseudo-elementos que puedes animar con CSS normal:\n\n```css\n::view-transition-old(root) { animation: fade-out 0.2s; }\n::view-transition-new(root) { animation: fade-in 0.2s; }\n```\n\n## Integración con el Router de Angular\n\nAngular lo trae de serie: basta con añadir `withViewTransitions()` al `provideRouter()` para que cada navegación quede envuelta en `document.startViewTransition()`. En navegadores sin soporte (Firefox, Safari antiguo) simplemente no hace nada — no hay que comprobarlo a mano.\n\n```typescript\nprovideRouter(routes, withViewTransitions())\n```\n\n## El detalle que no es obvio: el alcance por defecto es TODA la página\n\nSi no le dices nada más, el navegador trata el documento entero como un único grupo llamado `root`. Eso significa que si animas `::view-transition-old(root)`/`::view-transition-new(root)`, el navbar y el footer —que no cambian— **también** quedan dentro de la foto y se animan con el resto, aunque visualmente no tengan que moverse.\n\nLa solución es aislar solo la zona que realmente cambia dándole su propio nombre:\n\n```css\n.app-body-inner {\n  view-transition-name: main-view;\n}\n\n::view-transition-old(main-view) { animation: fade-out 0.18s ease-in both; }\n::view-transition-new(main-view) { animation: fade-in 0.22s ease-out both; }\n```\n\nCon un `view-transition-name` propio, ese elemento se convierte en su propio grupo de animación, separado de `root`. El resto de la página (navbar, footer) sigue formando parte de `root`, pero como no cambia entre navegaciones, su cruce es visualmente imperceptible — solo se ve animarse el contenido.",
+            "tags": [ "frontend", "angular", "web" ],
+            "related": [ "angular-signals", "app-shell-pattern" ],
+            "createdAt": "2026-07-06",
+            "updatedAt": "2026-07-06",
+            "sources": [
+                "https://developer.chrome.com/docs/web-platform/view-transitions",
+                "https://angular.dev/api/router/withViewTransitions"
+            ]
+        },
+        {
+            "id": "ai-visual-browser-testing",
+            "title": "Cómo una IA \"ve\" cambios visuales en una web",
+            "type": "concept",
+            "content": "Un asistente de IA no tiene ojos ni puede abrir Chrome y mirar la pantalla — pero sí puede **controlar un navegador real por código** y examinar lo que renderiza. Así es como se verificaron todos los cambios visuales de este proyecto durante su desarrollo.\n\n## La herramienta: Playwright\n\n[Playwright](https://playwright.dev/) es una librería (originalmente de Microsoft) que arranca un navegador de verdad (Chromium, Firefox o WebKit) en modo *headless* (sin ventana visible) y lo controla mediante código: navegar a una URL, hacer clic, escribir texto, esperar a que aparezca un elemento, hacer scroll…\n\n```javascript\nconst { chromium } = require('playwright');\nconst browser = await chromium.launch();\nconst page = await browser.newPage();\nawait page.goto('http://localhost:4200/notes');\nawait page.screenshot({ path: 'captura.png' });\n```\n\n## Dos formas complementarias de \"ver\"\n\n1. **Captura de pantalla** — genera un PNG real de lo que vería una persona. Sirve para juzgar diseño, color, contraste, composición general.\n2. **Medición directa del DOM** — mucho más precisa que mirar una imagen. Se le pide al navegador los números exactos:\n\n```javascript\nconst rect = document.querySelector('.mi-elemento').getBoundingClientRect();\n// { top, left, width, height... } en píxeles reales\n\ngetComputedStyle(el).display; // el valor CSS final ya resuelto\nel.scrollWidth > el.clientWidth; // ¿hay contenido desbordado?\n```\n\n## Por qué esto encontró bugs que a simple vista no se ven\n\nVarios de los bugs de este proyecto (el listado que no aprovechaba el ancho cuando estaba vacío, el scroll horizontal con la imagen, el skeleton demasiado estrecho) tenían el mismo origen: una propiedad `flex` que no hacía lo esperado. Comparando `getBoundingClientRect()` de un elemento y de su padre en varios anchos de pantalla a la vez, se podía confirmar con números exactos (`714px` de contenido dentro de un contenedor de `375px`, por ejemplo) que había desbordamiento — algo que en una sola captura de pantalla podía pasar desapercibido, sobre todo si el navegador oculta la barra de scroll.\n\n## La limitación\n\nEsto prueba **cómo se comporta el código**, no **si el diseño gusta**. Para decisiones de gusto (paleta de colores, si algo \"se siente bien\") la captura de pantalla sigue necesitando el ojo humano — la medición del DOM solo confirma hechos objetivos del layout.",
+            "tags": [ "ia", "testing", "herramientas" ],
+            "related": [],
+            "createdAt": "2026-07-06",
+            "updatedAt": "2026-07-06",
+            "sources": [
+                "https://playwright.dev/"
+            ]
+        },
+        {
+            "id": "angular-lazy-routes",
+            "title": "component vs loadComponent",
+            "type": "concept",
+            "content": "En las rutas de Angular (`Routes`) hay dos formas de decirle al Router qué componente renderizar, y no son intercambiables sin más: cambian **cuándo** se descarga el código.\n\n## `component` — carga eager (inmediata)\n\n```typescript\n{ path: 'notes', component: NoteListComponent }\n```\n\nEl código de `NoteListComponent` (y todo lo que importa) se empaqueta dentro del bundle principal (`main.js`). Se descarga siempre al entrar a la app, visite el usuario esa ruta o no.\n\n## `loadComponent` — carga lazy (perezosa)\n\n```typescript\n{ path: 'notes', loadComponent: () => import('./note-list').then(m => m.NoteListComponent) }\n```\n\nAngular separa ese componente en su propio *chunk* (un archivo `.js` aparte). Solo se descarga la primera vez que el usuario navega a esa ruta — el bundle inicial es más pequeño y la app arranca antes.\n\n## Prueba visual\n\n![Diagrama de carga eager vs lazy](assets/images/myLogo.png)\n\n*(Imagen de prueba para comprobar que el markdown soporta imágenes correctamente — sustituir por un diagrama real más adelante.)*\n\n## Cuándo usar cada una\n\n- **Pocas rutas o app pequeña** (como esta wiki, ~340KB en total): la diferencia es imperceptible. Usar `component` es más simple.\n- **Muchas rutas, o alguna con dependencias pesadas** (librerías de gráficas, editores de texto enriquecido, etc.): `loadComponent` evita que todo el mundo pague por código que solo usa una parte de los usuarios.\n\nEn `app.routes.ts` de este proyecto ambas formas conviven: la versión `loadComponent` está escrita pero comentada, y la activa es `component` — una decisión consciente de mantenerlo simple mientras el proyecto es pequeño.",
+            "tags": [ "angular", "frontend", "performance" ],
+            "related": [ "app-shell-pattern" ],
+            "createdAt": "2026-07-06",
+            "updatedAt": "2026-07-06",
+            "sources": [
+                "https://angular.dev/guide/routing/common-router-tasks#lazy-loading"
+            ]
+        },
+        {
             "id": "app-shell-pattern",
             "title": "App Shell Pattern",
             "type": "concept",
             "content": "Patrón de arquitectura web popularizado por Google con las Progressive Web Apps (PWA).\n\nEl **shell** es la estructura mínima de la interfaz que se carga primero y permanece estable mientras el contenido interior cambia dinámicamente.\n\n## Qué incluye el shell\n\n- Navbar / topbar\n- Sidebar\n- Layout base\n\n## Ventaja principal\n\nComo el esqueleto de la UI ya está pintado antes de que lleguen los datos, la app se siente más rápida para el usuario.\n\n## App Shell vs Wrapper\n\n| Término | Significado |\n|---------|-------------|\n| `AppShell` | Contenedor raíz con intención arquitectónica clara |\n| `Wrapper` | Término genérico de CSS/HTML, solo indica posición en el DOM |\n\nUsar `AppShell` comunica intención. Cualquiera que lea el código entiende que es el contenedor raíz de la aplicación, no un wrapper cualquiera.",
             "tags": [ "arquitectura", "frontend", "angular", "pwa" ],
-            "related": [ "rest-api" ],
+            "related": [ "rest-api", "view-transitions-api", "angular-lazy-routes" ],
             "createdAt": "2024-04-25",
             "updatedAt": "2024-04-25",
             "sources": [
