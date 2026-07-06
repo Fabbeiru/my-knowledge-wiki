@@ -1,11 +1,12 @@
 .app-shell {
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
-	overflow: hidden;
+	min-height: 100dvh;
 }
 
 .topbar {
+	position: sticky;
+	top: 0;
 	background: var(--bg-primary);
 	border-bottom: 1px solid var(--border);
 	flex-shrink: 0;
@@ -40,6 +41,11 @@
 	align-items: center;
 	justify-content: flex-end;
 	gap: 10px;
+	min-width: 0;
+
+	search-bar {
+		min-width: 0;
+	}
 }
 
 .theme-toggle {
@@ -64,7 +70,6 @@
 
 .app-body {
 	flex: 1;
-	overflow: hidden;
 	display: flex;
 	justify-content: center;
 }
@@ -74,7 +79,6 @@
 	max-width: 1280px;
 	padding: 0 32px;
 	display: flex;
-	overflow: hidden;
 	// Aísla esta zona en su propio grupo de la View Transitions API
 	// (ver styles.scss) para que la animación no afecte al navbar ni al footer.
 	view-transition-name: main-view;
