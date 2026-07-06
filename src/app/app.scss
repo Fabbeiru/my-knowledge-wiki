@@ -20,12 +20,6 @@
 	display: flex;
 	align-items: center;
 	gap: 12px;
-
-	search-bar {
-		flex: 1;
-		display: flex;
-		justify-content: flex-end;
-	}
 }
 
 .logo {
@@ -38,12 +32,14 @@
 	white-space: nowrap;
 	cursor: pointer;
 	flex-shrink: 0;
+}
 
-	.logo-img {
-		width: 30px;
-		height: 30px;
-		flex-shrink: 0;
-	}
+.right-controls {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 10px;
 }
 
 .theme-toggle {
@@ -79,6 +75,38 @@
 	padding: 0 32px;
 	display: flex;
 	overflow: hidden;
+	// Aísla esta zona en su propio grupo de la View Transitions API
+	// (ver styles.scss) para que la animación no afecte al navbar ni al footer.
+	view-transition-name: main-view;
+}
+
+// La vista enrutada (note-list, note-detail, tags-page...) debe ocupar
+// siempre todo el ancho disponible, aunque su contenido sea estrecho
+// (skeletons, estado vacío) — sin esto se encoge a su contenido.
+// ::ng-deep porque el host del componente enrutado no lleva el atributo
+// de scope del padre, así que un selector "normal" nunca lo alcanza.
+::ng-deep .app-body-inner > router-outlet + * {
+	flex: 1;
+	min-width: 0;
+}
+
+.app-footer {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 10px;
+	border-top: 1px solid var(--border);
+	background: var(--bg-primary);
+	font-size: 11px;
+	color: var(--text-muted);
+
+	.footer-logo {
+		width: 16px;
+		height: 16px;
+		border-radius: 3px;
+	}
 }
 
 @media (max-width: 1024px) {
@@ -91,26 +119,20 @@
 	.topbar-inner {
 		padding: 0 12px;
 		gap: 10px;
-
-		.logo span {
-			display: none;
-		}
 	}
 }
 
-// Transición entre rutas
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-		transform: translateY(6px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateY(0);
+@media (min-width: 1440px) {
+	.topbar-inner,
+	.app-body-inner {
+		max-width: 1440px;
 	}
 }
 
-router-outlet + * {
-	animation: fadeIn 0.2s ease-out;
+@media (min-width: 1800px) {
+	.topbar-inner,
+	.app-body-inner {
+		max-width: 1600px;
+	}
 }
+

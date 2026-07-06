@@ -16,7 +16,10 @@
   </div>
 
   <div class="sidebar-section">
-    <div class="section-label">Tags</div>
+    <div class="section-label-row">
+      <div class="section-label">Tags</div>
+      <a class="section-link" routerLink="/tags">Ver todos →</a>
+    </div>
     <div class="tag-cloud">
       @for (tag of allTags(); track tag) {
       <button class="tag-pill" [class.active]="selectedTags().includes(tag)" (click)="onToggleTag(tag)">

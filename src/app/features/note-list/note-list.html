@@ -3,40 +3,71 @@
 
   <div class="note-list-main">
 
-    <!-- Filtros inline — solo móvil -->
-    <div class="mobile-filters">
-      <div class="filters-row">
-        <div class="mobile-filter-types">
-          <button class="filter-pill type-pill" [class.active]="selectedType() === null" (click)="onSelectType(null)">
-            Todos
-          </button>
-          @for (type of noteTypes; track type.key) {
-          <button class="filter-pill type-pill" [class.active]="selectedType() === type.key"
-            (click)="onSelectType(type.key)">
-            {{ type.label }}
-          </button>
-          }
-        </div>
+    <!-- Filtros — solo móvil -->
+    <div class="mobile-filter-bar">
+      <button class="filters-trigger" (click)="openFiltersSheet()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M7 12h10M10 18h4" />
+        </svg>
+        Filtros
+        @if (activeFilterCount() > 0) {
+        <span class="filter-count">{{ activeFilterCount() }}</span>
+        }
+      </button>
+    </div>
 
-        <button class="tags-toggle" [class.active]="tagsExpanded()" (click)="toggleTags()">
-          Tags
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            [style.transform]="tagsExpanded() ? 'rotate(180deg)' : 'rotate(0deg)'" style="transition: transform 0.2s">
-            <path d="M6 9l6 6 6-6" />
+    @if (filtersSheetOpen()) {
+    <div class="sheet-backdrop" (click)="closeFiltersSheet()"></div>
+    <div class="filters-sheet">
+      <div class="sheet-header">
+        <span>Filtros</span>
+        <button class="sheet-close" (click)="closeFiltersSheet()" aria-label="Cerrar filtros">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6 6 18M6 6l12 12" />
           </svg>
         </button>
       </div>
 
-      @if (tagsExpanded()) {
-      <div class="mobile-filter-tags">
-        @for (tag of allTags(); track tag) {
-        <button class="filter-pill tag-pill" [class.active]="selectedTags().includes(tag)" (click)="onToggleTag(tag)">
-          {{ tag }}
-        </button>
+      <div class="sheet-body">
+        <div class="sheet-section">
+          <div class="section-label">Tipo</div>
+          <div class="sheet-type-list">
+            <button class="sheet-type-row" [class.active]="selectedType() === null" (click)="onSelectType(null)">
+              <span class="type-dot" style="background:#9ca3af"></span>
+              <span>Todos</span>
+            </button>
+            @for (type of noteTypes; track type.key) {
+            <button class="sheet-type-row" [class.active]="selectedType() === type.key"
+              (click)="onSelectType(type.key)">
+              <span class="type-dot" [style.background]="type.color"></span>
+              <span>{{ type.label }}</span>
+              <span class="sheet-type-count">{{ countByType()[type.key] }}</span>
+            </button>
+            }
+          </div>
+        </div>
+
+        @if (allTags().length > 0) {
+        <div class="sheet-section">
+          <div class="section-label">Tags</div>
+          <div class="sheet-tag-cloud">
+            @for (tag of allTags(); track tag) {
+            <button class="filter-pill tag-pill" [class.active]="selectedTags().includes(tag)"
+              (click)="onToggleTag(tag)">
+              {{ tag }}
+            </button>
+            }
+          </div>
+        </div>
         }
       </div>
-      }
+
+      <div class="sheet-footer">
+        <button class="sheet-btn sheet-btn--ghost" (click)="onClearFilters()">Limpiar</button>
+        <button class="sheet-btn sheet-btn--primary" (click)="closeFiltersSheet()">Cerrar</button>
+      </div>
     </div>
+    }
 
     <div class="centered-layout">
 

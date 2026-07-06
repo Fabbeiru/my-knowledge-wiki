@@ -1,0 +1,99 @@
+:host {
+	display: block;
+	min-width: 0;
+}
+
+:host ::ng-deep .prose-content {
+	font-size: 13px;
+	line-height: 1.8;
+	color: var(--text-secondary);
+
+	h1, h2, h3 {
+		color: var(--text-primary);
+		font-weight: 600;
+		margin: 16px 0 8px;
+	}
+	h2 { font-size: 15px; }
+	h3 { font-size: 13px; }
+	p { margin: 8px 0; color: var(--text-secondary); }
+	strong { color: var(--text-primary); font-weight: 600; }
+
+	code {
+		font-family: 'Fira Code', 'Cascadia Code', monospace;
+		font-size: 12px;
+		background: var(--bg-tertiary);
+		padding: 1px 6px;
+		border-radius: 4px;
+		color: var(--text-primary);
+	}
+
+	pre {
+		background: var(--bg-secondary);
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		padding: 12px 16px;
+		overflow-x: auto;
+		margin: 12px 0;
+
+		code {
+			background: transparent;
+			padding: 0;
+			font-size: 12px;
+			color: var(--text-primary);
+		}
+	}
+
+	ul { list-style: disc; }
+	ol { list-style: decimal; }
+	ul, ol { padding-left: 20px; margin: 8px 0; }
+	li { margin: 4px 0; color: var(--text-secondary); }
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 12px 0;
+		font-size: 12px;
+	}
+	th {
+		background: var(--bg-tertiary);
+		padding: 6px 10px;
+		text-align: left;
+		border: 1px solid var(--border);
+		font-weight: 600;
+		color: var(--text-primary);
+	}
+	td {
+		padding: 6px 10px;
+		border: 1px solid var(--border);
+		color: var(--text-secondary);
+	}
+
+	blockquote {
+		border-left: 3px solid var(--accent);
+		padding-left: 12px;
+		color: var(--text-tertiary);
+		margin: 12px 0;
+		font-style: italic;
+	}
+
+	img {
+		max-width: 100%;
+		border-radius: 8px;
+		margin: 8px 0;
+	}
+
+	a {
+		color: var(--accent);
+		text-decoration: none;
+		&:hover { text-decoration: underline; }
+	}
+
+	@media (min-width: 1440px) {
+		font-size: 14.5px;
+
+		h2 { font-size: 17px; }
+		h3 { font-size: 15px; }
+
+		code, pre code { font-size: 13px; }
+	}
+}

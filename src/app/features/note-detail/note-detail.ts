@@ -5,7 +5,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NotesService } from '../../core/services/notes';
 import { TypeBadgeComponent } from '../../shared/components/type-badge/type-badge';
 import { TagBadgeComponent } from '../../shared/components/tag-badge/tag-badge';
-import { MarkdownRendererComponent } from '../../shared/components/markdown-renderer/markdown-renderer';
+import { MarkdownRendererComponent, MarkdownHeading } from '../../shared/components/markdown-renderer/markdown-renderer';
 import { Note, NoteType } from '../../shared/models/note';
 import { SkeletonDetailComponent } from '../../shared/components/skeleton-detail/skeleton-detail';
 
@@ -41,6 +41,16 @@ export class NoteDetailComponent {
     const id = this.params()?.get('id');
     return this.notesService.loading() || (!!id && this.note() === undefined);
   });
+
+  readonly headings = signal<MarkdownHeading[]>([]);
+
+  onHeadingsChange(headings: MarkdownHeading[]): void {
+    this.headings.set(headings);
+  }
+
+  scrollToHeading(id: string): void {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
   goBack(): void {
     this.router.navigate(['/notes']);

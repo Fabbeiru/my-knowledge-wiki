@@ -10,7 +10,7 @@
 	display: flex;
 }
 
-.mobile-filters {
+.mobile-filter-bar {
 	display: none;
 }
 
@@ -63,6 +63,11 @@
 	grid-template-columns: repeat(3, 1fr);
 	gap: 14px;
 	align-content: start;
+	// margin-bottom (no padding en un ancestro flex:1) porque cuando el
+	// grid desborda su contenedor flex, ese padding queda "atrás" del
+	// contenido desbordado y nunca se ve — el margin sí forma parte del
+	// flujo real de contenido y el scroll lo respeta siempre.
+	margin-bottom: 28px;
 
 	@media (max-width: 1280px) {
 		grid-template-columns: repeat(2, 1fr);
@@ -151,10 +156,8 @@
 		display: none !important;
 	}
 
-	.mobile-filters {
+	.mobile-filter-bar {
 		display: flex;
-		flex-direction: column;
-		gap: 8px;
 		padding: 10px 16px;
 		border-bottom: 1px solid var(--border-subtle);
 		background: var(--bg-primary);
@@ -163,101 +166,42 @@
 		z-index: 10;
 	}
 
-	.filters-row {
+	.filters-trigger {
 		display: flex;
 		align-items: center;
-		gap: 8px;
-	}
-
-	.mobile-filter-types {
-		display: flex;
-		flex-wrap: nowrap;
 		gap: 6px;
-		overflow-x: auto;
-		flex: 1;
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-
-		&::-webkit-scrollbar {
-			display: none;
-		}
-	}
-
-	.mobile-filter-tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 5px;
-		padding: 4px 0 2px;
-		animation: fadeDown 0.15s ease-out;
-	}
-
-	@keyframes fadeDown {
-		from {
-			opacity: 0;
-			transform: translateY(-6px);
-		}
-
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	.type-pill {
-		font-size: 12px;
+		font-size: 13px;
 		font-weight: 500;
-		padding: 5px 12px;
-		border-radius: 999px;
+		padding: 7px 14px;
+		border-radius: 8px;
 		border: 1px solid var(--border);
 		background: var(--bg-secondary);
 		color: var(--text-secondary);
 		cursor: pointer;
-		white-space: nowrap;
-		flex-shrink: 0;
 		transition: all 0.1s;
 
 		&:hover {
 			border-color: var(--accent-border);
 		}
-
-		&.active {
-			background: var(--accent-light);
-			color: var(--accent-text);
-			border-color: var(--accent-border);
-			font-weight: 600;
-		}
 	}
 
-	.tags-toggle {
-		display: flex;
+	.filter-count {
+		display: inline-flex;
 		align-items: center;
-		gap: 4px;
-		font-size: 12px;
-		font-weight: 500;
-		padding: 5px 10px;
+		justify-content: center;
+		min-width: 16px;
+		height: 16px;
+		padding: 0 4px;
 		border-radius: 999px;
-		border: 1px solid var(--border);
-		background: var(--bg-secondary);
-		color: var(--text-secondary);
-		cursor: pointer;
-		white-space: nowrap;
-		flex-shrink: 0;
-		transition: all 0.1s;
-
-		&:hover {
-			border-color: var(--accent-border);
-		}
-
-		&.active {
-			background: var(--accent-light);
-			color: var(--accent-text);
-			border-color: var(--accent-border);
-		}
+		background: var(--accent);
+		color: white;
+		font-size: 10px;
+		font-weight: 600;
 	}
 
 	.tag-pill {
-		font-size: 11px;
-		padding: 3px 9px;
+		font-size: 12px;
+		padding: 5px 12px;
 		border-radius: 999px;
 		border: 1px solid var(--border);
 		background: var(--bg-secondary);
@@ -277,6 +221,169 @@
 		}
 	}
 
+	.sheet-backdrop {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.4);
+		z-index: 200;
+		animation: fadeIn 0.15s ease-out;
+	}
+
+	.filters-sheet {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 201;
+		max-height: 75vh;
+		display: flex;
+		flex-direction: column;
+		background: var(--bg-primary);
+		border-radius: 16px 16px 0 0;
+		box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
+		animation: slideUp 0.2s ease-out;
+	}
+
+	@keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
+	@keyframes slideUp {
+		from { transform: translateY(100%); }
+		to { transform: translateY(0); }
+	}
+
+	.sheet-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 16px 20px;
+		border-bottom: 1px solid var(--border-subtle);
+		font-size: 15px;
+		font-weight: 600;
+		color: var(--text-primary);
+		flex-shrink: 0;
+	}
+
+	.sheet-close {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		border-radius: 8px;
+		border: none;
+		background: transparent;
+		color: var(--text-tertiary);
+		cursor: pointer;
+
+		&:hover {
+			background: var(--bg-tertiary);
+			color: var(--text-primary);
+		}
+	}
+
+	.sheet-body {
+		overflow-y: auto;
+		padding: 16px 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.sheet-section {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.sheet-type-list {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.sheet-type-row {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 9px 8px;
+		border-radius: 8px;
+		border: none;
+		background: transparent;
+		color: var(--text-secondary);
+		font-size: 14px;
+		text-align: left;
+		cursor: pointer;
+		transition: background 0.1s, color 0.1s;
+
+		&:hover {
+			background: var(--bg-tertiary);
+		}
+
+		&.active {
+			background: var(--accent-light);
+			color: var(--accent-text);
+			font-weight: 600;
+		}
+	}
+
+	.sheet-type-count {
+		margin-left: auto;
+		font-size: 12px;
+		color: var(--text-muted);
+	}
+
+	.type-dot {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		flex-shrink: 0;
+		background: #9ca3af;
+	}
+
+	.sheet-tag-cloud {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+	}
+
+	.sheet-footer {
+		display: flex;
+		gap: 10px;
+		padding: 14px 20px;
+		border-top: 1px solid var(--border-subtle);
+		flex-shrink: 0;
+		padding-bottom: max(14px, env(safe-area-inset-bottom));
+	}
+
+	.sheet-btn {
+		flex: 1;
+		padding: 11px;
+		border-radius: 8px;
+		font-size: 14px;
+		font-weight: 500;
+		cursor: pointer;
+		transition: opacity 0.1s;
+
+		&:hover {
+			opacity: 0.9;
+		}
+
+		&--ghost {
+			border: 1px solid var(--border);
+			background: transparent;
+			color: var(--text-secondary);
+		}
+
+		&--primary {
+			border: none;
+			background: var(--accent);
+			color: white;
+		}
+	}
+
 	.centered-layout {
 		padding: 16px;
 	}
@@ -293,5 +400,37 @@
 
 	.notes-grid {
 		grid-template-columns: 1fr;
+	}
+}
+
+@media (min-width: 1440px) {
+	.list-title {
+		font-size: 26px;
+	}
+
+	.list-meta {
+		font-size: 13px;
+	}
+
+	.centered-layout {
+		padding: 32px 40px;
+		gap: 24px;
+	}
+
+	.notes-grid {
+		gap: 18px;
+		margin-bottom: 40px;
+	}
+
+	.note-card {
+		padding: 18px 20px;
+	}
+
+	.note-title {
+		font-size: 15px;
+	}
+
+	.note-preview {
+		font-size: 13px;
 	}
 }

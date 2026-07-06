@@ -9,11 +9,11 @@ import { Note, NoteType } from '../../shared/models/note';
 import { SkeletonCardComponent } from '../../shared/components/skeleton-card/skeleton-card';
 
 const NOTE_TYPES = [
-  { key: 'acronym' as NoteType, label: 'Acronym' },
-  { key: 'concept' as NoteType, label: 'Concept' },
-  { key: 'definition' as NoteType, label: 'Definition' },
-  { key: 'tip' as NoteType, label: 'Tip' },
-  { key: 'pattern' as NoteType, label: 'Pattern' },
+  { key: 'acronym' as NoteType, label: 'Acronym', color: '#185FA5' },
+  { key: 'concept' as NoteType, label: 'Concept', color: '#534AB7' },
+  { key: 'definition' as NoteType, label: 'Definition', color: '#0F6E56' },
+  { key: 'tip' as NoteType, label: 'Tip', color: '#854F0B' },
+  { key: 'pattern' as NoteType, label: 'Pattern', color: '#993C1D' },
 ];
 
 @Component({
@@ -32,14 +32,19 @@ export class NoteListComponent implements OnInit {
   readonly selectedType = this.notesService.selectedType;
   readonly selectedTags = this.notesService.selectedTags;
   readonly allTags = this.notesService.allTags;
+  readonly countByType = this.notesService.notesCountByType;
   readonly loading = this.notesService.loading;
   readonly noteTypes = NOTE_TYPES;
-  readonly tagsExpanded = signal(false);
+  readonly filtersSheetOpen = signal(false);
 
   readonly breadcrumbType = computed(() => {
     const type = this.selectedType();
     return type ? type.charAt(0).toUpperCase() + type.slice(1) : null;
   });
+
+  readonly activeFilterCount = computed(() =>
+    (this.selectedType() ? 1 : 0) + this.selectedTags().length
+  );
 
   ngOnInit(): void {
     const q = this.route.snapshot.queryParamMap.get('query');
@@ -47,7 +52,11 @@ export class NoteListComponent implements OnInit {
   }
 
   onSelectType(type: NoteType | null): void {
-    this.notesService.setType(type);
+    if (type === null) {
+      this.notesService.setType(null);
+    } else {
+      this.notesService.toggleType(type);
+    }
   }
 
   onToggleTag(tag: string): void {
@@ -59,8 +68,21 @@ export class NoteListComponent implements OnInit {
   }
 
 
-  toggleTags(): void {
-    this.tagsExpanded.update(v => !v);
+  openFiltersSheet(): void {
+    this.filtersSheetOpen.set(true);
+  }
+
+  closeFiltersSheet(): void {
+    this.filtersSheetOpen.set(false);
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.closeFiltersSheet();
+  }
+
+  onClearFilters(): void {
+    this.notesService.setType(null);
   }
 
   getPreview(content: string): string {

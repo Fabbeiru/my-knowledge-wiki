@@ -1,25 +1,27 @@
 <div class="app-shell">
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="logo" (click)="goHome()">
-        <img class="logo-img" src="./assets/images/myLogo.png" alt="Logo">
+      <div class="logo" role="button" tabindex="0" (click)="goHome()" (keydown.enter)="goHome()">
         <span>knowledge wiki</span>
       </div>
-      <button class="theme-toggle" (click)="themeService.toggle()"
-        [title]="themeService.isDark() ? 'Modo claro' : 'Modo oscuro'">
-        @if (themeService.isDark()) {
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="5" />
-          <path
-            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-        </svg>
-        } @else {
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-        }
-      </button>
-      <search-bar />
+      <div class="right-controls">
+        <search-bar />
+        <button class="theme-toggle" (click)="themeService.toggle()"
+          [attr.aria-label]="themeService.isDark() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+          [title]="themeService.isDark() ? 'Modo claro' : 'Modo oscuro'">
+          @if (themeService.isDark()) {
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5" />
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+          } @else {
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+          }
+        </button>
+      </div>
     </div>
   </header>
 
@@ -28,4 +30,9 @@
       <router-outlet />
     </div>
   </div>
+
+  <footer class="app-footer">
+    <img class="footer-logo" src="./assets/images/myLogo.png" alt="Logo de Fabián Beirutti">
+    <span>© 2026 Fabián Beirutti</span>
+  </footer>
 </div>

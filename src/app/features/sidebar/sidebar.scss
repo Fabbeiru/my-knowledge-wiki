@@ -32,6 +32,29 @@
   padding-left: 8px;
 }
 
+.section-label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-right: 8px;
+
+  .section-label {
+    margin-bottom: 6px;
+  }
+}
+
+.section-link {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .type-row {
   display: flex;
   align-items: center;
@@ -98,5 +121,23 @@
     background: var(--accent-light);
     color: var(--accent-text);
     border-color: var(--accent-border);
+  }
+}
+
+@media (min-width: 1440px) {
+  .sidebar {
+    width: 230px;
+  }
+
+  .type-row {
+    font-size: 14px;
+  }
+
+  .tag-pill {
+    font-size: 12px;
+  }
+
+  .section-label {
+    font-size: 11px;
   }
 }

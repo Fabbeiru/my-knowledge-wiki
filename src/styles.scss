@@ -15,7 +15,7 @@
 	--text-primary: #0f1117;
 	--text-secondary: #2d3748;
 	--text-tertiary: #4a5568;
-	--text-muted: #718096;
+	--text-muted: #5c6b81;
 	--accent: oklch(45% 0.274 263.83);
 	--accent-light: #dbeafe;
 	--accent-text: #1e40af;
@@ -31,7 +31,7 @@ html.dark {
 	--text-primary: #f0f4ff;
 	--text-secondary: #c8d3e8;
 	--text-tertiary: #8fa3c0;
-	--text-muted: #5d7a9a;
+	--text-muted: #7291b3;
 	--accent: oklch(62% 0.22 263.83);
 	--accent-light: #1a2d4a;
 	--accent-text: #7eb8f7;
@@ -48,4 +48,29 @@ body {
 	color: var(--text-primary);
 	background: var(--bg-secondary);
 	transition: background 0.2s, color 0.2s;
+}
+
+// Transición entre vistas de lista y detalle (View Transitions API nativa del Router).
+// Solo animamos el grupo "main-view" (ver app.scss), no "root" — así el navbar
+// y el footer quedan estáticos y solo se anima el contenido que realmente cambia.
+::view-transition-old(main-view) {
+	animation: view-fade-out 0.18s ease-in both;
+}
+
+::view-transition-new(main-view) {
+	animation: view-fade-in 0.22s ease-out both;
+}
+
+@keyframes view-fade-out {
+	to {
+		opacity: 0;
+		transform: scale(0.99);
+	}
+}
+
+@keyframes view-fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
 }

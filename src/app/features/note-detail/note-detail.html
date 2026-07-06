@@ -6,18 +6,26 @@
     </div>
     } @else if (note(); as note) {
 
-    <div class="breadcrumb">
-        <span class="bc-link" (click)="goBack()">Inicio</span>
-        <span class="bc-sep">›</span>
-        <span class="bc-link" (click)="goToType(note.type)">
-            {{ note.type.charAt(0).toUpperCase() + note.type.slice(1) }}
-        </span>
-        <span class="bc-sep">›</span>
-        <span class="bc-current">{{ note.title }}</span>
-    </div>
-
     <div class="detail-outer">
         <div class="centered-layout">
+
+            <div class="breadcrumb">
+                <span class="bc-link" (click)="goBack()">Inicio</span>
+                <span class="bc-sep">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <path d="m9 18 6-6-6-6" />
+                    </svg>
+                </span>
+                <span class="bc-link" (click)="goToType(note.type)">
+                    {{ note.type.charAt(0).toUpperCase() + note.type.slice(1) }}
+                </span>
+                <span class="bc-sep">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <path d="m9 18 6-6-6-6" />
+                    </svg>
+                </span>
+                <span class="bc-current">{{ note.title }}</span>
+            </div>
 
             <!-- Panel meta — en desktop va dentro del aside via CSS order,
          en móvil aparece arriba porque está antes en el DOM -->
@@ -52,7 +60,7 @@
                 <div class="detail-content">
                     <h1 class="detail-title">{{ note.title }}</h1>
                     <hr class="divider" />
-                    <markdown-renderer [content]="note.content" />
+                    <markdown-renderer [content]="note.content" (headingsChange)="onHeadingsChange($event)" />
                 </div>
 
                 <aside class="detail-panel">
@@ -80,6 +88,22 @@
                         </div>
                         }
                     </div>
+
+                    @if (headings().length > 0) {
+                    <div class="panel-card">
+                        <div class="panel-section">
+                            <div class="panel-label">En esta nota</div>
+                            <nav class="toc-links">
+                                @for (heading of headings(); track heading.id) {
+                                <button class="toc-link" [class.toc-link--sub]="heading.level === 3"
+                                    (click)="scrollToHeading(heading.id)">
+                                    {{ heading.text }}
+                                </button>
+                                }
+                            </nav>
+                        </div>
+                    </div>
+                    }
 
                     @if (relatedNotes().length > 0) {
                     <div class="panel-card">

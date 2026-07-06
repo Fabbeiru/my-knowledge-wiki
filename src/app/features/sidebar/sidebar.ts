@@ -1,5 +1,6 @@
 import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { NotesService } from '../../core/services/notes';
 import { NoteType } from '../../shared/models/note';
 
@@ -14,7 +15,7 @@ const TYPE_CONFIG: Record<NoteType, { label: string; color: string }> = {
 @Component({
   selector: 'sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss'
 })
@@ -33,7 +34,11 @@ export class SidebarComponent {
   readonly types = Object.entries(TYPE_CONFIG) as [NoteType, { label: string; color: string }][];
 
   onSelectType(type: NoteType | null): void {
-    this.notesService.setType(type);
+    if (type === null) {
+      this.notesService.setType(null);
+    } else {
+      this.notesService.toggleType(type);
+    }
   }
 
   onToggleTag(tag: string): void {

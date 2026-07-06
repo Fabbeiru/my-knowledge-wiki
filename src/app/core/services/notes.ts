@@ -69,6 +69,16 @@ export class NotesService {
     return [...new Set(tags)].sort();
   });
 
+  readonly allTagsWithCounts = computed(() => {
+    const counts: Record<string, number> = {};
+    for (const note of this._notes()) {
+      for (const tag of note.tags) counts[tag] = (counts[tag] ?? 0) + 1;
+    }
+    return Object.entries(counts)
+      .map(([tag, count]) => ({ tag, count }))
+      .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+  });
+
   readonly notesCountByType = computed(() => {
     const counts: Record<string, number> = {};
     for (const note of this._notes()) {
@@ -100,6 +110,15 @@ export class NotesService {
   setType(type: NoteType | null): void {
     this._selectedType.set(type);
     this._selectedTags.set([]);
+  }
+
+  toggleType(type: NoteType): void {
+    this.setType(this._selectedType() === type ? null : type);
+  }
+
+  selectTagOnly(tag: string): void {
+    this._selectedType.set(null);
+    this._selectedTags.set([tag]);
   }
 
   toggleTag(tag: string): void {
