@@ -14,6 +14,7 @@ export class App {
   private router = inject(Router);
 
   readonly themeService = inject(ThemeService);
+  readonly currentYear = new Date().getFullYear();
 
   goHome(): void {
     this.router.navigate(['/notes']);

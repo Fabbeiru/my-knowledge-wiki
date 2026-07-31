@@ -33,6 +33,10 @@
 	white-space: nowrap;
 	cursor: pointer;
 	flex-shrink: 0;
+
+	.logo-icon {
+		border-radius: 5px;
+	}
 }
 
 .right-controls {

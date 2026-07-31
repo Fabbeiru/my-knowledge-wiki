@@ -2,6 +2,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="logo" role="button" tabindex="0" (click)="goHome()" (keydown.enter)="goHome()">
+        <img class="logo-icon" src="./assets/images/logo.svg" alt="" width="32" height="32">
         <span>knowledge wiki</span>
       </div>
       <div class="right-controls">
@@ -32,7 +33,7 @@
   </div>
 
   <footer class="app-footer">
+    <span>© {{ currentYear }} Fabián Beirutti</span>
     <img class="footer-logo" src="./assets/images/myLogo.png" alt="Logo de Fabián Beirutti">
-    <span>© 2026 Fabián Beirutti</span>
   </footer>
 </div>
