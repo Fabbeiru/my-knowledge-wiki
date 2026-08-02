@@ -60,6 +60,20 @@
           </div>
         </div>
         }
+
+        @if (allMonths().length > 0) {
+        <div class="sheet-section">
+          <div class="section-label">Fecha</div>
+          <div class="sheet-tag-cloud">
+            @for (month of allMonths(); track month.value) {
+            <button class="filter-pill tag-pill" [class.active]="selectedMonth() === month.value"
+              (click)="onToggleMonth(month.value)">
+              {{ month.label }}
+            </button>
+            }
+          </div>
+        </div>
+        }
       </div>
 
       <div class="sheet-footer">

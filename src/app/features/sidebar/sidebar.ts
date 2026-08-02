@@ -24,7 +24,9 @@ export class SidebarComponent {
 
   readonly selectedType = this.notesService.selectedType;
   readonly selectedTags = this.notesService.selectedTags;
+  readonly selectedMonth = this.notesService.selectedMonth;
   readonly allTags = this.notesService.allTags;
+  readonly allMonths = this.notesService.allMonths;
   readonly countByType = this.notesService.notesCountByType;
 
   readonly totalNotes = computed(() =>
@@ -43,5 +45,9 @@ export class SidebarComponent {
 
   onToggleTag(tag: string): void {
     this.notesService.toggleTag(tag);
+  }
+
+  onToggleMonth(month: string): void {
+    this.notesService.toggleMonth(month);
   }
 }

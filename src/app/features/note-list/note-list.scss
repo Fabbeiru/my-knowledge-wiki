@@ -405,6 +405,17 @@
 	}
 }
 
+// El sheet de filtros solo tiene su estilo (position: fixed, etc.) dentro del
+// media query móvil de arriba. Si queda abierto y la ventana crece por encima
+// de ese breakpoint, sin esta regla se renderiza como bloque normal sin
+// estilo, encima del listado.
+@media (min-width: 1025px) {
+	.sheet-backdrop,
+	.filters-sheet {
+		display: none !important;
+	}
+}
+
 @media (min-width: 1440px) {
 	.list-title {
 		font-size: 26px;

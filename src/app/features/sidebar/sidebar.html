@@ -28,4 +28,17 @@
       }
     </div>
   </div>
+
+  @if (allMonths().length > 0) {
+  <div class="sidebar-section">
+    <div class="section-label">Fecha</div>
+    <div class="tag-cloud">
+      @for (month of allMonths(); track month.value) {
+      <button class="tag-pill" [class.active]="selectedMonth() === month.value" (click)="onToggleMonth(month.value)">
+        {{ month.label }}
+      </button>
+      }
+    </div>
+  </div>
+  }
 </aside>

@@ -31,7 +31,9 @@ export class NoteListComponent implements OnInit {
   readonly notes = this.notesService.filteredNotes;
   readonly selectedType = this.notesService.selectedType;
   readonly selectedTags = this.notesService.selectedTags;
+  readonly selectedMonth = this.notesService.selectedMonth;
   readonly allTags = this.notesService.allTags;
+  readonly allMonths = this.notesService.allMonths;
   readonly countByType = this.notesService.notesCountByType;
   readonly loading = this.notesService.loading;
   readonly noteTypes = NOTE_TYPES;
@@ -43,7 +45,7 @@ export class NoteListComponent implements OnInit {
   });
 
   readonly activeFilterCount = computed(() =>
-    (this.selectedType() ? 1 : 0) + this.selectedTags().length
+    (this.selectedType() ? 1 : 0) + this.selectedTags().length + (this.selectedMonth() ? 1 : 0)
   );
 
   ngOnInit(): void {
@@ -61,6 +63,10 @@ export class NoteListComponent implements OnInit {
 
   onToggleTag(tag: string): void {
     this.notesService.toggleTag(tag);
+  }
+
+  onToggleMonth(month: string): void {
+    this.notesService.toggleMonth(month);
   }
 
   onNoteClick(note: Note): void {
@@ -83,6 +89,7 @@ export class NoteListComponent implements OnInit {
 
   onClearFilters(): void {
     this.notesService.setType(null);
+    this.notesService.setMonth(null);
   }
 
   getPreview(content: string): string {

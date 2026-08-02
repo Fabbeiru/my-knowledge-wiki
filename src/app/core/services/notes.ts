@@ -4,6 +4,18 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 import { Note, NoteType } from '../../shared/models/note';
 
+const MONTH_NAMES = [
+  'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+  'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+];
+
+/** Convierte "YYYY-MM" en una etiqueta legible, p.ej. "Agosto 2026". */
+function formatMonthLabel(yearMonth: string): string {
+  const [year, month] = yearMonth.split('-');
+  const name = MONTH_NAMES[Number(month) - 1];
+  return `${name.charAt(0).toUpperCase()}${name.slice(1)} ${year}`;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +23,7 @@ export class NotesService {
   private readonly _notes = signal<Note[]>([]);
   private readonly _selectedType = signal<NoteType | null>(null);
   private readonly _selectedTags = signal<string[]>([]);
+  private readonly _selectedMonth = signal<string | null>(null);
   private readonly _searchQuery = signal<string>('');
   private readonly _loading = signal(false);
 
@@ -18,6 +31,7 @@ export class NotesService {
   readonly allNotes = this._notes.asReadonly();
   readonly selectedType = this._selectedType.asReadonly();
   readonly selectedTags = this._selectedTags.asReadonly();
+  readonly selectedMonth = this._selectedMonth.asReadonly();
   readonly searchQuery = this._searchQuery.asReadonly();
 
   readonly filteredNotes = computed(() => {
@@ -33,6 +47,11 @@ export class NotesService {
       notes = notes.filter(n => tags.every(t => n.tags.includes(t)));
     }
 
+    const month = this._selectedMonth();
+    if (month) {
+      notes = notes.filter(n => n.createdAt.startsWith(month));
+    }
+
     const query = this._searchQuery().toLowerCase().trim();
     if (query) {
       notes = notes.filter(n =>
@@ -43,6 +62,15 @@ export class NotesService {
     }
 
     return notes;
+  });
+
+  /** Meses (año-mes) presentes en las notas, más recientes primero. */
+  readonly allMonths = computed(() => {
+    const months = new Set(this._notes().map(n => n.createdAt.slice(0, 7)));
+    return [...months]
+      .sort()
+      .reverse()
+      .map(value => ({ value, label: formatMonthLabel(value) }));
   });
 
   readonly allTags = computed(() => {
@@ -129,6 +157,14 @@ export class NotesService {
     this._selectedTags.set(updated);
   }
 
+  setMonth(month: string | null): void {
+    this._selectedMonth.set(month);
+  }
+
+  toggleMonth(month: string): void {
+    this.setMonth(this._selectedMonth() === month ? null : month);
+  }
+
   setSearchQuery(query: string): void {
     this._searchQuery.set(query);
   }
@@ -136,6 +172,7 @@ export class NotesService {
   clearFilters(): void {
     this._selectedType.set(null);
     this._selectedTags.set([]);
+    this._selectedMonth.set(null);
     this._searchQuery.set('');
   }
 

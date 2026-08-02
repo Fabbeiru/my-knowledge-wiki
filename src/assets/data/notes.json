@@ -7,8 +7,8 @@
             "content": "**Application Programming Interface**\n\nContrato entre dos sistemas que define cómo comunicarse. Expone operaciones disponibles sin revelar la implementación interna.\n\n## Tipos comunes\n\n- **REST** — basado en HTTP, el más extendido\n- **GraphQL** — el cliente decide qué datos pide\n- **gRPC** — binario, muy eficiente para microservicios\n- **WebSocket** — comunicación bidireccional en tiempo real\n\n## Ejemplo\n\n```http\nGET /users/42\nAuthorization: Bearer <token>\n\n→ 200 OK\n{ \"id\": 42, \"name\": \"Ada Lovelace\" }\n```",
             "tags": [ "backend", "web", "fundamentos" ],
             "related": [ "rest-api", "http" ],
-            "createdAt": "2024-01-15",
-            "updatedAt": "2024-01-15",
+            "createdAt": "2026-04-26",
+            "updatedAt": "2026-04-26",
             "sources": [
                 "https://developer.mozilla.org/es/docs/Learn/JavaScript/Client-side_web_APIs/Introduction"
             ]
@@ -20,8 +20,8 @@
             "content": "**Representational State Transfer**\n\nEstilo arquitectónico para diseñar servicios web. No es un protocolo sino un conjunto de restricciones.\n\n## Restricciones principales\n\n- **Stateless** — cada petición contiene toda la información necesaria\n- **Client-Server** — separación clara de responsabilidades\n- **Uniform Interface** — recursos identificados por URLs\n- **Cacheable** — las respuestas deben indicar si son cacheables\n\n## Verbos HTTP en REST\n\n| Verbo | Acción |\n|-------|--------|\n| GET | Leer |\n| POST | Crear |\n| PUT | Reemplazar |\n| PATCH | Actualizar parcialmente |\n| DELETE | Eliminar |",
             "tags": [ "backend", "web", "arquitectura" ],
             "related": [ "api", "http", "json" ],
-            "createdAt": "2024-01-16",
-            "updatedAt": "2024-02-10",
+            "createdAt": "2026-04-26",
+            "updatedAt": "2026-04-26",
             "sources": []
         },
         {
@@ -31,8 +31,8 @@
             "content": "Conjunto de cinco principios de diseño orientado a objetos que mejoran la mantenibilidad y escalabilidad del código.\n\n## Los cinco principios\n\n- **S** — *Single Responsibility*: una clase, una razón para cambiar\n- **O** — *Open/Closed*: abierto a extensión, cerrado a modificación\n- **L** — *Liskov Substitution*: los subtipos deben poder sustituir a sus tipos base\n- **I** — *Interface Segregation*: interfaces pequeñas y específicas\n- **D** — *Dependency Inversion*: depender de abstracciones, no de implementaciones",
             "tags": [ "arquitectura", "buenas-practicas", "oop" ],
             "related": [ "design-patterns", "clean-code" ],
-            "createdAt": "2024-01-20",
-            "updatedAt": "2024-03-05",
+            "createdAt": "2026-04-26",
+            "updatedAt": "2026-04-26",
             "sources": []
         },
         {
@@ -42,8 +42,8 @@
             "content": "**HyperText Transfer Protocol**\n\nProtocolo de comunicación sin estado que define cómo se intercambian mensajes entre cliente y servidor en la web.\n\n## Estructura de una petición\n\n```\nMétodo URL HTTP/versión\nHeaders\n\nBody (opcional)\n```\n\n## Códigos de estado\n\n- **2xx** — Éxito (200 OK, 201 Created)\n- **3xx** — Redirección (301 Moved, 304 Not Modified)\n- **4xx** — Error del cliente (400 Bad Request, 404 Not Found)\n- **5xx** — Error del servidor (500 Internal Server Error)",
             "tags": [ "backend", "web", "fundamentos" ],
             "related": [ "rest-api", "api" ],
-            "createdAt": "2024-01-18",
-            "updatedAt": "2024-01-18",
+            "createdAt": "2026-04-26",
+            "updatedAt": "2026-04-26",
             "sources": []
         },
         {
@@ -53,8 +53,8 @@
             "content": "Sistema de reactividad introducido en Angular 16 y estabilizado en Angular 17. Alternativa más simple a RxJS para gestionar estado local.\n\n## Tipos principales\n\n```typescript\n// Signal de lectura y escritura\nconst count = signal(0);\n\n// Modificar\ncount.set(1);\ncount.update(v => v + 1);\n\n// Computed — derivado de otros signals\nconst double = computed(() => count() * 2);\n\n// Effect — ejecuta código cuando cambia\neffect(() => console.log(count()));\n```\n\n## Cuándo usar Signals vs RxJS\n\n- **Signals** para estado local del componente\n- **RxJS** para flujos de eventos asíncronos complejos",
             "tags": [ "angular", "frontend", "reactividad" ],
             "related": [ "rxjs", "angular-standalone", "view-transitions-api" ],
-            "createdAt": "2024-02-01",
-            "updatedAt": "2024-03-10",
+            "createdAt": "2026-04-26",
+            "updatedAt": "2026-04-26",
             "sources": []
         },
         {
@@ -64,8 +64,8 @@
             "content": "**Don't Repeat Yourself**\n\nPrincipio de desarrollo que establece que cada pieza de conocimiento debe tener una representación única en el sistema.\n\n## El problema que resuelve\n\nCuando la misma lógica está duplicada en varios sitios, un cambio obliga a modificar todos esos sitios. Si se olvida alguno, aparecen bugs.\n\n## Ejemplo\n\n```typescript\n// ❌ Mal — lógica duplicada\nfunction getPriceWithTaxES(price: number) { return price * 1.21; }\nfunction getPriceWithTaxFR(price: number) { return price * 1.21; }\n\n// ✅ Bien — una sola fuente de verdad\nconst TAX_RATE = 1.21;\nfunction getPriceWithTax(price: number) { return price * TAX_RATE; }\n```",
             "tags": [ "buenas-practicas", "fundamentos" ],
             "related": [ "solid-principles", "clean-code" ],
-            "createdAt": "2024-01-25",
-            "updatedAt": "2024-01-25",
+            "createdAt": "2026-04-26",
+            "updatedAt": "2026-04-26",
             "sources": []
         },
         {
@@ -75,8 +75,8 @@
             "content": "Modelo de layout unidimensional de CSS que distribuye elementos en un eje (horizontal o vertical).\n\n## Propiedades del contenedor\n\n```css\n.container {\n  display: flex;\n  flex-direction: row;      /* o column */\n  justify-content: center;  /* eje principal */\n  align-items: center;      /* eje secundario */\n  gap: 16px;\n}\n```\n\n## Propiedades del hijo\n\n```css\n.item {\n  flex: 1;          /* crecer y encoger */\n  flex-shrink: 0;   /* no encoger nunca */\n  align-self: flex-start;\n}\n```",
             "tags": [ "css", "frontend", "layout" ],
             "related": [ "css-grid" ],
-            "createdAt": "2024-02-05",
-            "updatedAt": "2024-02-05",
+            "createdAt": "2026-04-26",
+            "updatedAt": "2026-04-26",
             "sources": []
         },
         {
@@ -86,8 +86,8 @@
             "content": "Tailwind permite usar valores exactos fuera de su escala de diseño usando corchetes.\n\n## Sintaxis\n\n```html\n<!-- Ancho exacto -->\n<div class=\"w-[340px]\"></div>\n\n<!-- Color personalizado -->\n<div class=\"bg-[#1a2b3c]\"></div>\n\n<!-- Con variables CSS -->\n<div class=\"text-[var(--wiki-blue)]\"></div>\n```\n\n## Cuándo usarlos\n\nÚsalos con moderación para casos puntuales que no encajan en la escala. Si los usas mucho en el mismo valor, mejor definir un token en `@theme`.",
             "tags": [ "css", "tailwind", "frontend" ],
             "related": [ "css-flexbox" ],
-            "createdAt": "2024-03-01",
-            "updatedAt": "2024-03-01",
+            "createdAt": "2026-04-26",
+            "updatedAt": "2026-04-26",
             "sources": []
         },
         {
@@ -137,10 +137,169 @@
             "content": "Patrón de arquitectura web popularizado por Google con las Progressive Web Apps (PWA).\n\nEl **shell** es la estructura mínima de la interfaz que se carga primero y permanece estable mientras el contenido interior cambia dinámicamente.\n\n## Qué incluye el shell\n\n- Navbar / topbar\n- Sidebar\n- Layout base\n\n## Ventaja principal\n\nComo el esqueleto de la UI ya está pintado antes de que lleguen los datos, la app se siente más rápida para el usuario.\n\n## App Shell vs Wrapper\n\n| Término | Significado |\n|---------|-------------|\n| `AppShell` | Contenedor raíz con intención arquitectónica clara |\n| `Wrapper` | Término genérico de CSS/HTML, solo indica posición en el DOM |\n\nUsar `AppShell` comunica intención. Cualquiera que lea el código entiende que es el contenedor raíz de la aplicación, no un wrapper cualquiera.",
             "tags": [ "arquitectura", "frontend", "angular", "pwa" ],
             "related": [ "rest-api", "view-transitions-api", "angular-lazy-routes" ],
-            "createdAt": "2024-04-25",
-            "updatedAt": "2024-04-25",
+            "createdAt": "2026-04-26",
+            "updatedAt": "2026-04-26",
             "sources": [
                 "https://developer.chrome.com/docs/workbox/app-shell-model"
+            ]
+        },
+        {
+            "id": "ai-agentic-shift",
+            "title": "De chatbot a agente: qué ha cambiado",
+            "type": "concept",
+            "content": "Hasta hace poco, un modelo de lenguaje como Claude solo podía hacer una cosa: recibir texto y devolver texto. No tenía acceso a archivos, terminal, ni memoria entre sesiones. Lo que ha cambiado en los últimos años no es un único avance, sino la combinación de varios.\n\n## Los ingredientes del cambio\n\n- **Tool calling** — los modelos se entrenaron para emitir peticiones estructuradas (\"ejecuta esta función con estos parámetros\") en vez de solo texto libre. Ver [[tool-calling]]\n- **Ventanas de contexto mucho más grandes** — de unos pocos miles de tokens a cientos de miles, lo que permite cargar archivos completos, historiales largos y resultados de comandos sin perder el hilo\n- **Mejor razonamiento multi-paso** — los modelos mejoraron en planificar secuencias (\"para hacer X necesito primero Y\") sin perder coherencia\n- **Entrenamiento específico para tareas agentivas** — refuerzo enfocado en escribir código, correr pruebas, corregir errores e iterar de forma fiable\n- **El harness** — software externo que ejecuta de verdad las acciones que el modelo pide, gestiona permisos y memoria. Ver [[agent-harness]]\n- **MCP** — un protocolo estándar para conectar modelos con herramientas externas sin reinventar cada integración. Ver [[mcp-protocol]]\n\n## Lo importante: el modelo nunca \"actúa\" por sí mismo\n\nEl modelo sigue siendo, en esencia, texto que predice texto. Lo que hace posible que \"actúe\" es que una capa de software externa (el harness) interpreta sus peticiones estructuradas, las ejecuta de verdad sobre el sistema (leer un archivo, correr un comando, editar código) y le devuelve el resultado como texto para que siga razonando. El \"poder\" no está en el modelo — está en la infraestructura que lo rodea y que decide qué se le permite hacer.\n\n## Analogía\n\nEs como si el modelo fuera un cerebro que solo sabe hablar, y el harness fuera el cuerpo: manos para teclear, ojos para leer resultados, y alguien vigilando que no haga nada peligroso sin permiso.",
+            "tags": [ "ia", "agentes", "fundamentos" ],
+            "related": [ "tool-calling", "mcp-protocol", "agent-harness" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://www.anthropic.com/engineering/building-effective-agents",
+                "https://www.anthropic.com/news/model-context-protocol"
+            ]
+        },
+        {
+            "id": "tool-calling",
+            "title": "Tool calling (function calling)",
+            "type": "concept",
+            "content": "Mecanismo que permite a un modelo de lenguaje pedir la ejecución de una acción externa, en vez de limitarse a devolver texto en lenguaje natural.\n\n## Cómo funciona\n\n1. La aplicación (el [[agent-harness]]) le dice al modelo qué herramientas existen y con qué parámetros se usan (por ejemplo, `Read(file_path)`, `Bash(command)`)\n2. El modelo, en su respuesta, puede emitir una petición estructurada — normalmente JSON — pidiendo usar una de esas herramientas con unos parámetros concretos\n3. El harness intercepta esa petición, la valida (y puede pedir confirmación al usuario si es sensible), y la ejecuta de verdad\n4. El resultado de la ejecución se devuelve al modelo como texto, y el modelo continúa razonando con esa información nueva\n\n```\nModelo:  \"quiero ejecutar Bash('git status')\"\n   ↓\nHarness: ejecuta el comando de verdad en el sistema\n   ↓\nHarness → Modelo: \"salida: On branch main, nothing to commit...\"\n   ↓\nModelo:  continúa la conversación usando ese resultado\n```\n\n## Por qué importa\n\nSin esto, un modelo solo puede \"hablar sobre\" código o datos, nunca actuar sobre ellos. Con tool calling, un modelo puede encadenar varias acciones (leer un archivo, decidir un cambio, aplicarlo, verificar que funciona) — la base de cualquier agente de IA actual.\n\n## Relación con MCP\n\nTool calling es el mecanismo general (el modelo sabe pedir \"ejecuta esto\"). [[mcp-protocol]] es un estándar que define cómo se empaquetan y describen esas herramientas para que cualquier aplicación de IA compatible pueda usarlas sin necesitar una integración a medida.",
+            "tags": [ "ia", "agentes", "fundamentos" ],
+            "related": [ "ai-agentic-shift", "mcp-protocol", "agent-harness" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview"
+            ]
+        },
+        {
+            "id": "mcp-protocol",
+            "title": "MCP (Model Context Protocol)",
+            "type": "acronym",
+            "content": "**Model Context Protocol**\n\nProtocolo abierto, creado por Anthropic en 2024, que estandariza cómo una aplicación de IA se conecta con herramientas y fuentes de datos externas.\n\n## El problema que resuelve\n\nAntes de MCP, conectar un modelo a, por ejemplo, Slack, una base de datos o un sistema de tickets requería una integración distinta para cada combinación de aplicación de IA + herramienta externa — un problema de N×M integraciones.\n\n## Cómo funciona\n\nMCP define una arquitectura cliente-servidor:\n\n- Un **servidor MCP** expone un conjunto de herramientas y/o datos de forma estandarizada (por ejemplo, \"leer un ticket de Jira\", \"consultar una tabla de la base de datos\")\n- Cualquier **cliente MCP** (una app de IA compatible, como Claude Desktop o Claude Code) puede conectarse a ese servidor y usar sus herramientas sin necesitar código de integración a medida\n\n```\nCliente MCP (Claude Code) ←→ Servidor MCP (Slack, GitHub, base de datos...)\n```\n\n## Analogía\n\nEs parecido a lo que HTTP hizo por la web: antes de un protocolo compartido, cada cliente y servidor \"hablaban su propio idioma\"; con un estándar común, cualquier cliente puede hablar con cualquier servidor compatible.\n\n## Relación con tool calling\n\nMCP no sustituye al [[tool-calling]] — se apoya en él. El modelo sigue pidiendo \"ejecuta esta herramienta con estos parámetros\" igual que siempre; lo que MCP estandariza es cómo se describe y expone esa herramienta, para que sea reutilizable entre distintas aplicaciones sin reinventar la integración cada vez.",
+            "tags": [ "ia", "agentes", "protocolos" ],
+            "related": [ "tool-calling", "agent-harness", "ai-agentic-shift" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://modelcontextprotocol.io/",
+                "https://www.anthropic.com/news/model-context-protocol"
+            ]
+        },
+        {
+            "id": "agent-harness",
+            "title": "Harness (agente de IA)",
+            "type": "concept",
+            "content": "Nombre habitual para el software que envuelve a un modelo de lenguaje y lo convierte en un agente capaz de actuar, en vez de solo responder texto en una caja de chat.\n\n## Qué hace el harness\n\nUn modelo por sí solo únicamente sabe recibir texto y devolver texto — no tiene acceso a un sistema de archivos, terminal ni memoria propia entre sesiones. El harness es la capa externa que:\n\n- **Define las herramientas disponibles** y se las describe al modelo\n- **Intercepta las peticiones** de [[tool-calling]] del modelo y las ejecuta de verdad sobre el sistema\n- **Pide confirmación al usuario** antes de ejecutar acciones sensibles o irreversibles\n- **Devuelve el resultado** de cada acción al modelo como texto, para que siga razonando\n- **Gestiona el contexto** — qué información (archivos, historial, resultados previos) se incluye en cada llamada al modelo\n- **Gestiona el estado persistente** — memoria entre sesiones, directorio de trabajo, configuración\n- **Aplica reglas de seguridad** — sandboxing, comandos bloqueados, límites de permisos\n\n## Ejemplos de harness\n\nClaude Code, Claude Desktop (con servidores [[mcp-protocol]] conectados), o cualquier aplicación construida sobre el Claude Agent SDK.\n\n## Por qué la distinción importa\n\nEl modelo aporta el razonamiento (\"qué hacer y en qué orden\"); el harness aporta la ejecución real y la seguridad (\"cómo hacerlo, y con qué permisos\"). El salto de \"chatbot\" a \"agente con poder real\" se debe tanto a la mejora del modelo como al desarrollo de esta capa de software — ver [[ai-agentic-shift]].",
+            "tags": [ "ia", "agentes", "fundamentos" ],
+            "related": [ "tool-calling", "mcp-protocol", "ai-agentic-shift" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://docs.claude.com/en/docs/claude-code/overview",
+                "https://www.anthropic.com/engineering/building-effective-agents"
+            ]
+        },
+        {
+            "id": "magic-numbers",
+            "title": "Firma de archivo (magic numbers)",
+            "type": "concept",
+            "content": "Los primeros bytes de un archivo suelen ser una secuencia fija que identifica su formato real, sin importar el nombre o la extensión que tenga. A esa secuencia se la llama *magic number* o firma de archivo.\n\n## Ejemplo: PNG\n\nTodo archivo PNG empieza siempre con los mismos 8 bytes:\n\n```\n89 50 4E 47 0D 0A 1A 0A\n```\n\nSi coges ese archivo y le cambias la extensión a `.ico`, `.jpg` o `.txt`, esos bytes no cambian — sigue siendo un PNG por dentro. La extensión es solo una etiqueta para humanos y para el explorador de archivos; el contenido es lo que de verdad define el formato.\n\n## Cómo comprobarlo\n\nEn Unix/macOS (o Git Bash en Windows), el comando `file` lee esos bytes en vez de fiarse del nombre:\n\n```bash\n$ file favicon.ico\nfavicon.ico: PNG image data, 1024 x 1024, 8-bit/color RGBA\n```\n\n## Por qué importa\n\n- Los navegadores y sistemas operativos usan esta técnica (*content sniffing*) para mostrar un archivo correctamente aunque su extensión esté mal puesta o falte.\n- Es también cómo un antivirus detecta un ejecutable disfrazado de imagen.\n- Sirve para depurar: si algo no carga como esperabas, comprobar la firma real del archivo descarta que el problema sea simplemente una extensión incorrecta.\n\nVer [[ico-vs-png]] para un caso real donde esto se detectó.",
+            "tags": [ "fundamentos", "herramientas" ],
+            "related": [ "ico-vs-png" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://en.wikipedia.org/wiki/List_of_file_signatures"
+            ]
+        },
+        {
+            "id": "ico-vs-png",
+            "title": "ICO vs PNG",
+            "type": "concept",
+            "content": "Un PNG es una imagen normal: un único bitmap a una sola resolución. Un ICO es un formato *contenedor*: puede empaquetar varias versiones de la misma imagen en distintos tamaños (16×16, 32×32, 48×48, 256×256...) dentro de un mismo archivo.\n\n## Estructura de un ICO\n\n```\nmifavicon.ico\n ├── ICONDIR (cabecera-índice)\n ├── imagen 16×16\n ├── imagen 32×32\n ├── imagen 48×48\n └── imagen 256×256\n```\n\nLa cabecera `ICONDIR` le dice al sistema operativo o al navegador qué tamaños hay disponibles y en qué byte empieza cada uno dentro del archivo. Quien lo consume elige la versión que mejor encaja para el contexto (una pestaña diminuta usa la de 16px, un acceso directo de Windows la de 48px...) — las imágenes ya vienen pre-renderizadas a ese tamaño, no se reescalan al vuelo.\n\n## Renombrar no cambia el formato\n\nCambiarle la extensión a un PNG por `.ico` no lo convierte en un ICO real: el archivo sigue siendo, por dentro, una única imagen sin cabecera `ICONDIR` ni tamaños empaquetados. Ver [[magic-numbers]] para cómo detectar esto.\n\n## Alternativa moderna: varios PNG sueltos\n\nEn vez de un único `.ico` con tamaños empaquetados dentro, hoy es común servir varios archivos PNG independientes, cada uno ya renderizado a su tamaño, y listarlos en el HTML:\n\n```html\n<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"favicon-32.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"favicon-16.png\">\n```\n\nMismo objetivo que un ICO — darle al navegador la imagen ya lista al tamaño que necesita — pero como ficheros sueltos en vez de un contenedor único.",
+            "tags": [ "web", "frontend" ],
+            "related": [ "magic-numbers" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://en.wikipedia.org/wiki/ICO_(file_format)"
+            ]
+        },
+        {
+            "id": "json",
+            "title": "JSON",
+            "type": "acronym",
+            "content": "**JavaScript Object Notation**\n\nFormato de texto ligero para intercambiar datos estructurados. A pesar del nombre, es independiente del lenguaje — prácticamente cualquier lenguaje moderno tiene una librería para leerlo y escribirlo.\n\n## Tipos de datos\n\n- **string** — texto entre comillas dobles\n- **number** — entero o decimal, sin comillas\n- **boolean** — `true` o `false`\n- **null**\n- **object** — pares clave-valor entre `{ }`\n- **array** — lista ordenada entre `[ ]`\n\n## Ejemplo\n\n```json\n{\n  \"id\": 42,\n  \"nombre\": \"Ada Lovelace\",\n  \"activo\": true,\n  \"tags\": [\"backend\", \"web\"],\n  \"direccion\": null\n}\n```\n\n## Reglas que suelen sorprender\n\n- Las claves **siempre** van entre comillas dobles — a diferencia de un objeto literal en JavaScript, `{nombre: \"Ada\"}` no es JSON válido\n- No admite comentarios\n- No admite comas finales (`trailing comma`) después del último elemento\n- No distingue entre entero y decimal — todo es `number`\n\n## JSON vs XML\n\nJSON reemplazó a XML como formato dominante para APIs web sobre todo por ser más compacto y mapear directamente a estructuras de datos nativas de JavaScript (objetos y arrays), sin necesitar un parser aparte.",
+            "tags": [ "backend", "web", "fundamentos" ],
+            "related": [ "rest-api", "api" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://www.json.org/json-en.html"
+            ]
+        },
+        {
+            "id": "design-patterns",
+            "title": "Patrones de diseño",
+            "type": "concept",
+            "content": "Soluciones reutilizables a problemas de diseño que aparecen una y otra vez en el desarrollo de software orientado a objetos. Un patrón no es código que se copia y pega — es una plantilla conceptual que se adapta a cada situación concreta.\n\n## Las tres categorías clásicas\n\n- **Creacionales** — cómo se crean los objetos (Singleton, Factory, Builder)\n- **Estructurales** — cómo se componen clases y objetos en estructuras más grandes (Adapter, Decorator, Facade)\n- **De comportamiento** — cómo se comunican y reparten responsabilidades los objetos (Observer, Strategy, Command)\n\n## Ejemplo: Observer\n\nUno de los más comunes en frontend — un objeto (el *subject*) mantiene una lista de dependientes (*observers*) y les notifica automáticamente de cualquier cambio de estado:\n\n```typescript\nclass Subject {\n  private observers: (() => void)[] = [];\n\n  subscribe(fn: () => void) { this.observers.push(fn); }\n  notify() { this.observers.forEach(fn => fn()); }\n}\n```\n\nEsta es, en esencia, la idea detrás de [[rxjs]] y de los propios Signals de Angular.\n\n## Por qué importa conocerlos\n\nNo se trata de memorizar los cerca de 23 patrones del libro original *Design Patterns* (Gang of Four), sino de tener vocabulario compartido: decir \"esto es un Factory\" comunica en una palabra una intención de diseño completa a otro desarrollador.",
+            "tags": [ "arquitectura", "buenas-practicas", "oop" ],
+            "related": [ "solid-principles", "clean-code" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://refactoring.guru/design-patterns"
+            ]
+        },
+        {
+            "id": "clean-code",
+            "title": "Clean Code",
+            "type": "concept",
+            "content": "Conjunto de principios y hábitos de escritura de código popularizados por el libro *Clean Code* de Robert C. Martin (\"Uncle Bob\"). La idea central: el código se lee muchas más veces de las que se escribe, así que optimizar para la lectura importa más que optimizar para escribirlo rápido.\n\n## Algunas ideas clave\n\n- **Nombres que revelan intención** — una variable llamada `d` no dice nada; `diasDesdeUltimoLogin` sí\n- **Funciones pequeñas y con un solo nivel de abstracción** — si una función hace \"leer archivo\" y también \"validar formato\" y también \"guardar en base de datos\", son tres funciones, no una\n- **Evitar comentarios que explican QUÉ hace el código** — si hace falta un comentario para explicar qué hace una línea, normalmente es mejor reescribir esa línea para que se explique sola. Un comentario debería explicar el *por qué*, no el *qué*\n- **Sin efectos secundarios ocultos** — una función llamada `esValido(usuario)` no debería, de paso, modificar la base de datos\n\n## Relación con SOLID y DRY\n\nClean Code no es una metodología distinta a [[solid-principles]] o [[dry]] — es más bien el paraguas que las engloba: SOLID se centra en el diseño de clases, DRY en evitar duplicación, y Clean Code añade hábitos a nivel de línea y función (nombres, tamaño, comentarios).\n\n## La crítica habitual\n\nAlgunas de las reglas del libro (funciones de 3-4 líneas, cero comentarios) se consideran hoy demasiado estrictas. La idea general — priorizar la legibilidad — sigue siendo consenso amplio.",
+            "tags": [ "buenas-practicas", "fundamentos" ],
+            "related": [ "dry", "solid-principles", "design-patterns" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://en.wikipedia.org/wiki/Clean_Code"
+            ]
+        },
+        {
+            "id": "rxjs",
+            "title": "RxJS",
+            "type": "concept",
+            "content": "Librería para programación reactiva en JavaScript basada en *Observables* — secuencias de datos asíncronos que se pueden transformar, combinar y suscribirse a ellas, de forma parecida a como se trabaja con arrays pero repartidos en el tiempo en vez de en memoria.\n\n## La pieza central: el Observable\n\n```typescript\nimport { interval } from 'rxjs';\n\nconst tick$ = interval(1000); // emite 0, 1, 2... cada segundo\n\nconst subscription = tick$.subscribe(valor => console.log(valor));\n\n// Para dejar de escuchar\nsubscription.unsubscribe();\n```\n\nUn Observable no hace nada hasta que alguien se suscribe — a diferencia de una Promise, que empieza a ejecutarse en cuanto se crea.\n\n## Operadores\n\nLa potencia real de RxJS está en encadenar operadores que transforman el flujo sin tocar el original:\n\n```typescript\nimport { fromEvent } from 'rxjs';\nimport { debounceTime, map } from 'rxjs/operators';\n\nfromEvent(inputEl, 'input').pipe(\n  debounceTime(300),\n  map(e => (e.target as HTMLInputElement).value)\n).subscribe(texto => buscar(texto));\n```\n\n## RxJS vs Signals\n\nAmbos resuelven \"reactividad\", pero para casos distintos:\n\n| | RxJS | Signals |\n|---|---|---|\n| Qué modela | Flujos de eventos a lo largo del tiempo (clics, peticiones HTTP, WebSockets) | Estado local que cambia (un contador, un formulario) |\n| Curva de aprendizaje | Alta — decenas de operadores | Baja — `signal()`, `computed()`, `effect()` |\n| Cancelación / limpieza | Manual (`unsubscribe`) o con el pipe `async` | Automática, gestionada por Angular |\n\nEn Angular moderno, [[angular-signals]] cubre la mayoría de los casos de estado local, y RxJS sigue siendo la herramienta natural para flujos asíncronos complejos (por ejemplo, combinar varias peticiones HTTP con reintentos).",
+            "tags": [ "angular", "frontend", "reactividad" ],
+            "related": [ "angular-signals" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://rxjs.dev/"
+            ]
+        },
+        {
+            "id": "angular-standalone",
+            "title": "Standalone Components",
+            "type": "concept",
+            "content": "Forma de declarar un componente de Angular que gestiona sus propias dependencias (`imports`) directamente en el `@Component`, sin necesitar pertenecer a un `NgModule`.\n\n## Antes: todo pasaba por un NgModule\n\n```typescript\n@NgModule({\n  declarations: [MiComponente],\n  imports: [CommonModule, FormsModule],\n})\nexport class MiModule {}\n```\n\nCada componente tenía que declararse en un módulo, y ese módulo importar todo lo que sus componentes necesitaran. Para apps grandes esto significaba mantener un árbol de módulos que no siempre reflejaba dependencias reales.\n\n## Ahora: el componente declara lo que necesita\n\n```typescript\n@Component({\n  selector: 'mi-componente',\n  standalone: true,\n  imports: [CommonModule, FormsModule],\n  templateUrl: './mi-componente.html',\n})\nexport class MiComponente {}\n```\n\nEl propio componente lista sus dependencias — más fácil de leer, y el *tree-shaking* funciona mejor porque las dependencias están explícitas por componente, no ocultas dentro de un módulo compartido.\n\n## Impacto en el resto de la app\n\nCon standalone components, `provideRouter()`, `provideHttpClient()` y similares sustituyen a los módulos que antes configuraban routing o HTTP (`RouterModule.forRoot()`, `HttpClientModule`). Es el enfoque usado en todos los componentes de este proyecto — no hay ni un solo `NgModule`.\n\n## Por qué apareció\n\nSimplifica la curva de entrada a Angular (un componente nuevo ya no exige entender el sistema de módulos) y hace posible el *lazy loading* a nivel de componente individual — ver [[angular-lazy-routes]] — sin depender de módulos de ruta (`loadChildren`).",
+            "tags": [ "angular", "frontend", "arquitectura" ],
+            "related": [ "angular-signals", "angular-lazy-routes" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://angular.dev/guide/components/importing"
+            ]
+        },
+        {
+            "id": "css-grid",
+            "title": "CSS Grid",
+            "type": "definition",
+            "content": "Modelo de layout **bidimensional** de CSS — a diferencia de Flexbox (ver [[css-flexbox]]), que reparte elementos en un único eje, Grid controla filas y columnas a la vez.\n\n## Propiedades del contenedor\n\n```css\n.container {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: auto 1fr auto;\n  gap: 16px;\n}\n```\n\n`repeat(3, 1fr)` crea tres columnas de igual ancho; `1fr` significa \"una fracción del espacio disponible\", parecido a `flex: 1` pero aplicado a toda una columna o fila.\n\n## Posicionar un hijo explícitamente\n\n```css\n.item {\n  grid-column: 1 / 3;  /* ocupa de la línea 1 a la 3 */\n  grid-row: 2;\n}\n```\n\nUn hijo puede saltarse el orden natural del grid y ocupar la posición exacta (incluso varias celdas) que se le indique — algo que Flexbox no puede hacer sin envolver elementos en contenedores extra.\n\n## Cuándo usar Grid vs Flexbox\n\n- **Grid** — cuando el layout tiene una estructura de filas *y* columnas real (una página completa, una galería, un dashboard)\n- **Flexbox** — cuando solo hay que repartir elementos en una fila o columna (una barra de navegación, una lista de tags)\n\nEn la práctica ambos conviven: es habitual usar Grid para la estructura general de la página y Flexbox dentro de cada celda del grid.",
+            "tags": [ "css", "frontend", "layout" ],
+            "related": [ "css-flexbox" ],
+            "createdAt": "2026-08-02",
+            "updatedAt": "2026-08-02",
+            "sources": [
+                "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout"
             ]
         }
     ]
