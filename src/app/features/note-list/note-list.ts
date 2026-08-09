@@ -1,6 +1,7 @@
 import { Component, inject, computed, OnInit, HostListener, signal } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 import { NotesService } from '../../core/services/notes';
 import { TypeBadgeComponent } from '../../shared/components/type-badge/type-badge';
 import { TagBadgeComponent } from '../../shared/components/tag-badge/tag-badge';
@@ -27,6 +28,7 @@ export class NoteListComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private notesService = inject(NotesService);
+  private titleService = inject(Title);
 
   readonly notes = this.notesService.filteredNotes;
   readonly selectedType = this.notesService.selectedType;
@@ -49,6 +51,7 @@ export class NoteListComponent implements OnInit {
   );
 
   ngOnInit(): void {
+    this.titleService.setTitle('MyKnowledgeWiki');
     const q = this.route.snapshot.queryParamMap.get('query');
     if (q) this.notesService.setSearchQuery(q);
   }

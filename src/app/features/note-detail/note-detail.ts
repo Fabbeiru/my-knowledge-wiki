@@ -1,6 +1,7 @@
-import { Component, inject, computed, signal } from '@angular/core';
+import { Component, inject, computed, signal, effect } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NotesService } from '../../core/services/notes';
 import { TypeBadgeComponent } from '../../shared/components/type-badge/type-badge';
@@ -20,6 +21,7 @@ export class NoteDetailComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private notesService = inject(NotesService);
+  private titleService = inject(Title);
 
   // Convertimos los params del router a signal para que sea reactivo
   private readonly params = toSignal(this.route.paramMap);
@@ -27,6 +29,14 @@ export class NoteDetailComponent {
   readonly note = computed(() => {
     const id = this.params()?.get('id');
     return id ? this.notesService.getNoteById(id) : undefined;
+  });
+
+  // Título de la pestaña: "Nombre de la nota - MyKnowledgeWiki".
+  // Al depender de note() se reevalúa también cuando cambiamos de nota
+  // sin salir del componente (p. ej. desde "Relacionadas").
+  private readonly titleEffect = effect(() => {
+    const note = this.note();
+    if (note) this.titleService.setTitle(`${note.title} - MyKnowledgeWiki`);
   });
 
   readonly relatedNotes = computed(() => {

@@ -121,11 +121,17 @@
 	.app-body-inner {
 		padding: 0;
 	}
+
+	// Debe coincidir con el padding que aplican las vistas (centered-layout)
+	// una vez que pierden el padding del contenedor de arriba, si no el
+	// navbar queda desalineado con el contenido de debajo.
+	.topbar-inner {
+		padding: 0 16px;
+	}
 }
 
 @media (max-width: 768px) {
 	.topbar-inner {
-		padding: 0 12px;
 		gap: 10px;
 	}
 }
