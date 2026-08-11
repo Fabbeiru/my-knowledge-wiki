@@ -47,10 +47,12 @@ export class NoteDetailComponent {
       .filter((n): n is Note => n !== undefined);
   });
 
-  readonly isLoading = computed(() => {
-    const id = this.params()?.get('id');
-    return this.notesService.loading() || (!!id && this.note() === undefined);
-  });
+  // Solo depende de si la lista de notas sigue cargando. Antes también
+  // comprobaba "note() === undefined", pero eso es indistinguible entre
+  // "aún no ha llegado la lista" y "el id no existe" — con un id inválido
+  // note() nunca deja de ser undefined y el skeleton se quedaba para
+  // siempre, sin llegar nunca al estado de "Nota no encontrada".
+  readonly isLoading = computed(() => this.notesService.loading());
 
   readonly headings = signal<MarkdownHeading[]>([]);
 
