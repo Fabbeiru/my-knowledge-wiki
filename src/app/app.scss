@@ -134,6 +134,14 @@
 	.topbar-inner {
 		gap: 10px;
 	}
+
+	// El título ocupa espacio horizontal que en mobile hace falta para la
+	// search-bar. Se oculta el texto y se deja solo el icono como logo —
+	// el gap de .topbar-inner (10px) sigue separando el logo del resto,
+	// así que la separación con el input no cambia.
+	.logo span {
+		display: none;
+	}
 }
 
 @media (min-width: 1440px) {

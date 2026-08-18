@@ -1,9 +1,9 @@
 <div class="app-shell">
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="logo" role="button" tabindex="0" (click)="goHome()" (keydown.enter)="goHome()">
+      <div class="logo" role="button" tabindex="0" aria-label="knowledge wiki - Ir al inicio" (click)="goHome()" (keydown.enter)="goHome()">
         <img class="logo-icon" src="./assets/images/logo.svg" alt="" width="32" height="32">
-        <span>knowledge wiki</span>
+        <span aria-hidden="true">knowledge wiki</span>
       </div>
       <div class="right-controls">
         <search-bar />
