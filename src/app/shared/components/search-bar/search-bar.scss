@@ -24,6 +24,11 @@
 
   input {
     flex: 1;
+    // Sin esto, un elemento flex nunca se encoge por debajo del ancho
+    // "natural" de su contenido (el placeholder, en este caso). En
+    // pantallas estrechas eso desborda la fila y el overflow:hidden de
+    // .search-input-row recorta la lupa y la "x" de limpiar por fuera.
+    min-width: 0;
     padding: 6px 12px;
     font-size: 13px;
     border: none;
@@ -33,11 +38,12 @@
 
     // iOS/Android Safari hace zoom automático al enfocar inputs con
     // font-size menor a 16px. Lo subimos solo en mobile para evitarlo.
-    // El padding también sube un poco para que la caja no quede
-    // desproporcionada frente al texto más grande.
+    // Se mantiene el padding original a propósito: preferimos que la
+    // caja siga alineada en altura con el resto de iconos del navbar
+    // aunque el texto quede algo grande, antes que agrandar todo el
+    // conjunto.
     @media (max-width: 768px) {
       font-size: 16px;
-      padding: 9px 12px;
     }
 
     &::placeholder {
@@ -55,17 +61,6 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-
-  // Acompaña el font-size:16px del input en mobile: iconos y padding
-  // un poco más grandes para mantener las proporciones del conjunto.
-  @media (max-width: 768px) {
-    padding: 9px 10px;
-
-    svg {
-      width: 15px;
-      height: 15px;
-    }
-  }
 
   &:hover {
     color: var(--accent);
