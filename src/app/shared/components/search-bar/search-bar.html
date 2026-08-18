@@ -3,13 +3,17 @@
         <input type="text" placeholder="Buscar notas..." aria-label="Buscar notas" [value]="query()"
             (input)="onInput($event)" (keydown)="onKeydown($event)"
             (focus)="showDropdown.set(query().length >= 3)" />
-        @if (query().length > 0) {
-        <button class="clear-btn" (click)="clearSearch()" title="Limpiar" aria-label="Limpiar búsqueda">
+        <!-- Siempre en el DOM (nunca @if): si el botón aparece/desaparece
+        según haya texto, el ancho "natural" de la fila cambia con él y
+        toda la search-bar se ensancha al escribir la primera letra. Se
+        mantiene el hueco reservado siempre y solo se oculta visualmente. -->
+        <button class="clear-btn" [class.is-hidden]="query().length === 0" [disabled]="query().length === 0"
+            [attr.aria-hidden]="query().length === 0 ? 'true' : null" (click)="clearSearch()" title="Limpiar"
+            aria-label="Limpiar búsqueda">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M18 6 6 18M6 6l12 12" />
             </svg>
         </button>
-        }
         <button class="search-btn" (click)="search(); focusInput()" title="Buscar" aria-label="Buscar">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="11" cy="11" r="8" />
@@ -18,13 +22,22 @@
         </button>
     </div>
 
-    @if (showDropdown() && suggestions().length > 0) {
+    @if (showDropdown()) {
     <div class="dropdown">
+        @if (suggestions().length > 0) {
         @for (note of suggestions(); track note.id) {
         <div class="dropdown-item" (click)="goToNote(note)">
             <span class="dropdown-title">{{ note.title }}</span>
             <span class="dropdown-type">{{ note.type }}</span>
         </div>
+        }
+        } @else {
+        <!-- Sin coincidencias rápidas no significa "no hay nada que buscar":
+        siempre dejamos la puerta abierta a la búsqueda completa (más
+        relevante todavía si algún día esto pasa a consultar una API en
+        vez del JSON local, donde "sin resultados aquí" no debería cerrar
+        la puerta a intentarlo en el backend). -->
+        <div class="dropdown-empty">Sin coincidencias rápidas para "{{ query() }}"</div>
         }
         <div class="dropdown-footer" (click)="search()">
             Ver todos los resultados de "{{ query() }}" →
