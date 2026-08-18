@@ -33,8 +33,11 @@
 
     // iOS/Android Safari hace zoom automático al enfocar inputs con
     // font-size menor a 16px. Lo subimos solo en mobile para evitarlo.
+    // El padding también sube un poco para que la caja no quede
+    // desproporcionada frente al texto más grande.
     @media (max-width: 768px) {
       font-size: 16px;
+      padding: 9px 12px;
     }
 
     &::placeholder {
@@ -52,6 +55,17 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+
+  // Acompaña el font-size:16px del input en mobile: iconos y padding
+  // un poco más grandes para mantener las proporciones del conjunto.
+  @media (max-width: 768px) {
+    padding: 9px 10px;
+
+    svg {
+      width: 15px;
+      height: 15px;
+    }
+  }
 
   &:hover {
     color: var(--accent);
