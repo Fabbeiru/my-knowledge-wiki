@@ -31,6 +31,12 @@
     color: var(--text-primary);
     outline: none;
 
+    // iOS/Android Safari hace zoom automático al enfocar inputs con
+    // font-size menor a 16px. Lo subimos solo en mobile para evitarlo.
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+
     &::placeholder {
       color: var(--text-muted);
     }
